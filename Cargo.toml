@@ -1,0 +1,24 @@
+[package]
+name = "lineage"
+version = "0.1.0"
+edition = "2024"
+authors = ["Lineage Project"]
+description = "Software identity preserved through irreversible change"
+readme = "README.md"
+keywords = ["ontology", "identity", "consequences", "irreversible"]
+categories = ["data-structures", "no-std"]
+
+[lib]
+name = "lineage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "lineage"
+path = "src/main.rs"
+
+[dependencies]
+sha2 = "0.10"
+chrono = "0.4"
+uuid = { version = "1.0", features = ["v4", "serde"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
