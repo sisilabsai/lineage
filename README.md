@@ -85,10 +85,19 @@ cargo run
 # Trust Score Dashboard - Interactive TUI with 5 agents
 cargo run --example trust_score_dashboard --release
 
+# Graveyard System - The Eternal Archive of Dead Agents
+cargo run --example ghost_in_the_machine          # Single agent death and burial
+cargo run --example multi_agent_competition       # Population dynamics + auto-burial
+cargo run --example graveyard_inspector -- --summarize   # Analyze dead agents
+cargo run --example graveyard_inspector -- --darwinian   # Find evolutionary winners
+
+# Run archaeologist scenario (5 generations, ~50 dead agents)
+.\archaeologist.ps1                # Windows
+bash archaeologist.sh              # Linux/Mac
+
 # Other fascinating examples
 cargo run --example lifecycle_demo
 cargo run --example persistent_audit_daemon
-cargo run --example multi_agent_competition
 cargo run --example permadeath_adventurers
 ```
 
@@ -103,6 +112,25 @@ cargo test test_identity_cannot_clone
 
 # With output
 cargo test -- --nocapture
+```
+
+---
+
+## 📖 Graveyard System (The Eternal Archive)
+
+The Graveyard is a persistent, tamper-proof archive of dead agents. Every deceased agent receives an immutable tombstone containing:
+
+- Complete identity and metabolic record
+- All scars with timestamps and severity
+- Cryptographic proof against tampering
+- Legacy score calculation (tasks/scars ratio)
+
+**See:** [GRAVEYARD_GUIDE.md](GRAVEYARD_GUIDE.md) and [GRAVEYARD_TESTING.md](GRAVEYARD_TESTING.md)
+
+### Quick Graveyard Test
+```bash
+cargo run --example ghost_in_the_machine
+cargo run --example graveyard_inspector -- --summarize
 ```
 
 ---
