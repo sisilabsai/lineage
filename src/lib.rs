@@ -67,6 +67,7 @@ pub mod lineage;
 pub mod behavior;
 pub mod trust;
 pub mod agent;
+pub mod graveyard;
 
 // Re-export main types for convenience
 pub use lineage::{Lineage, OperationResult, OperationError, LineageStatus};
@@ -77,3 +78,4 @@ pub use scar::{ScarTissue, Scar, ScarSeverity};
 pub use behavior::{PulseBehavior, PulseOutput};
 pub use trust::{TrustedActor, TrustCapability, TrustResult, ViolationType};
 pub use agent::{TaskAgent, Task, TaskOutcome, TaskResult};
+pub use graveyard::{Graveyard, Tombstone, GraveyardError, IdentityBlock, MetabolicRecord, PathologyReport};

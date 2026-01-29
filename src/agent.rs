@@ -14,6 +14,7 @@
 
 use crate::lineage::{Lineage, OperationError};
 use crate::scar::ScarSeverity;
+use crate::graveyard::Graveyard;
 
 /// Classification of task execution outcomes.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -149,9 +150,24 @@ impl TaskAgent {
     /// Create new agent with initial energy budget.
     /// 
     /// FINITE LIFETIME: This is all the energy the agent will ever have.
+    /// 
+    /// LAZARUS CHECK: Verifies that no agent with this identity has died before.
+    /// If an agent identity is found in the graveyard, this function panics.
     pub fn create(initial_energy: u64) -> Self {
+        let lineage = Lineage::create(initial_energy);
+        let agent_id = lineage.identity().id();
+        
+        // LAZARUS PREVENTION: Check if this identity has already died
+        if Graveyard::is_dead(agent_id) {
+            panic!(
+                "ONTOLOGICAL ERROR: Identity {} is already sealed in the Eternal Archive. \
+                 A dead identity cannot be reborn.",
+                agent_id
+            );
+        }
+        
         TaskAgent {
-            lineage: Lineage::create(initial_energy),
+            lineage,
             tasks_completed: 0,
             tasks_failed: 0,
         }
@@ -302,6 +318,61 @@ impl TaskAgent {
                 std::process::exit(1);
             }
         }
+    }
+    
+    /// Bury this agent in the Graveyard (requires agent to be dead).
+    /// 
+    /// Creates a cryptographically sealed tombstone with:
+    /// - Complete identity and metabolic information
+    /// - All scars and cause of death
+    /// - Causal chain for tamper detection
+    /// 
+    /// **CONSEQUENCE**: Once buried, this agent's identity cannot be reused.
+    /// **CONSEQUENCE**: Tombstone is immutable after creation.
+    pub fn bury(&self) -> Result<(), crate::graveyard::GraveyardError> {
+        if self.is_alive() {
+            return Err(crate::graveyard::GraveyardError::DirectoryError(
+                "Cannot bury a living agent".to_string(),
+            ));
+        }
+
+        // Gather scar information
+        let scar_records: Vec<crate::graveyard::ScarRecord> = self
+            .lineage
+            .scars()
+            .all_scars()
+            .iter()
+            .map(|scar| crate::graveyard::ScarRecord {
+                timestamp: scar.timestamp(),
+                severity: format!("{:?}", scar.severity()),
+                description: scar.description().to_string(),
+                context: scar.context().map(|s| s.to_string()),
+            })
+            .collect();
+
+        // Determine cause of death
+        let cause_of_death = self
+            .lineage
+            .scars()
+            .latest_scar()
+            .map(|s| s.description().to_string())
+            .unwrap_or_else(|| "Energy depletion".to_string());
+
+        // Create tombstone
+        let tombstone = crate::graveyard::Tombstone::create(
+            self.identity().id().to_string(),
+            format!("{:?}", self.identity()),
+            chrono::Utc::now() - chrono::Duration::seconds(1), // Approximate creation time
+            self.energy(),
+            self.lineage.metabolism().initial_energy(),
+            self.lineage.metabolism().initial_energy(),
+            self.tasks_completed as u32,
+            scar_records,
+            cause_of_death,
+        );
+
+        // Bury in the eternal archive
+        crate::graveyard::Graveyard::bury(&tombstone)
     }
     
     /// Get agent status summary.

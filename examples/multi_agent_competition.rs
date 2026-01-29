@@ -38,6 +38,11 @@ struct AgentStats {
 fn main() {
     clear_screen();
     
+    // Initialize the graveyard system
+    if let Err(e) = lineage::Graveyard::initialize() {
+        eprintln!("Warning: Failed to initialize graveyard: {}", e);
+    }
+    
     print_banner();
     println!();
 
@@ -146,6 +151,19 @@ fn main() {
                 } => {
                     stats[idx].tasks_failed += 1;
                     print_task_failure(idx, round, &agents[idx], &reason, damage_inflicted);
+                    
+                    // Check if agent died from this failure
+                    if !agents[idx].is_alive() && stats[idx].death_round.is_none() {
+                        stats[idx].death_round = Some(round);
+                        stats[idx].final_damage = agents[idx].damage_score();
+                        stats[idx].final_energy = agents[idx].energy();
+                        alive_agents -= 1;
+                        
+                        // Bury the agent in the graveyard
+                        if let Err(e) = agents[idx].bury() {
+                            eprintln!("Warning: Failed to bury agent {}: {}", idx, e);
+                        }
+                    }
                 }
                 lineage::TaskResult::InsufficientEnergy { .. } => {
                     stats[idx].tasks_failed += 1;
@@ -161,6 +179,11 @@ fn main() {
                     stats[idx].final_energy = agents[idx].energy();
                     print_agent_death(idx, round);
                     alive_agents -= 1;
+                    
+                    // Bury the agent in the graveyard
+                    if let Err(e) = agents[idx].bury() {
+                        eprintln!("Warning: Failed to bury agent {}: {}", idx, e);
+                    }
                 }
             }
 
