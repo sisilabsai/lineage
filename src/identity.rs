@@ -30,6 +30,7 @@ pub struct Identity {
     /// Creation timestamp (nanoseconds since epoch)
     birth_time: u128,
     /// Entropy source at creation
+    #[allow(dead_code)]
     entropy: [u8; 32],
 }
 

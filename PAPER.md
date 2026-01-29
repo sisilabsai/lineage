@@ -10,7 +10,7 @@
 
 Most software systems treat state as reversible: errors can be caught, resources restored, and operations retried. This reversibility erases consequence, enabling systems to behave as if past actions never occurred. We present **Lineage**, a software architecture enforcing irreversible state transitions through ontological constraints. Lineage systems exhibit unique identity, append-only history, finite non-replenishable resources, permanent error consequences, and irreversible death. Enforcement occurs via type system restrictions and runtime invariant verification. We describe the six primitives, their interactions, and the mechanisms preventing circumvention. A reference implementation in Rust demonstrates feasibility.
 
----
+
 
 ## 1. Introduction
 
