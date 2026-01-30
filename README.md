@@ -9,6 +9,8 @@
 >
 > An ontological software system enforcing permanent consequence. Identity cannot be cloned, history cannot be erased, energy cannot be restored, scars are permanent, and death is final.
 
+**👉 Read the full vision: [The Lineage Manifesto](MANIFESTO.md)**
+
 ---
 
 ## 🎯 What is Lineage?
@@ -555,7 +557,9 @@ git push origin feature/my-feature
 
 ## 💬 Support & Community
 
-- **🐛 Bug Reports**: [Open Issue](https://github.com/sisilabsai/lineage/issues/new)
+- **� Philosophy**: [Read the Manifesto](MANIFESTO.md) - Our declaration of consequential architecture
+- **📚 Doctrine**: [Read the Doctrine](DOCTRINE.md) - Seven irreducible principles
+- **�🐛 Bug Reports**: [Open Issue](https://github.com/sisilabsai/lineage/issues/new)
 - **💡 Feature Requests**: [Start Discussion](https://github.com/sisilabsai/lineage/discussions/new)
 - **❓ Questions**: [Ask in Discussions](https://github.com/sisilabsai/lineage/discussions)
 - **📣 Share Your Work**: [Use Discussions](https://github.com/sisilabsai/lineage/discussions)
