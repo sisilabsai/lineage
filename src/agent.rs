@@ -358,14 +358,18 @@ impl TaskAgent {
             .map(|s| s.description().to_string())
             .unwrap_or_else(|| "Energy depletion".to_string());
 
-        // Create tombstone
+        // Create tombstone with proper energy metrics
+        let initial_energy = self.lineage.metabolism().initial_energy();
+        let final_energy = self.energy();
+        let _energy_consumed = initial_energy.saturating_sub(final_energy);
+        
         let tombstone = crate::graveyard::Tombstone::create(
             self.identity().id().to_string(),
             format!("{:?}", self.identity()),
             chrono::Utc::now() - chrono::Duration::seconds(1), // Approximate creation time
-            self.energy(),
-            self.lineage.metabolism().initial_energy(),
-            self.lineage.metabolism().initial_energy(),
+            final_energy,
+            initial_energy,  // Peak energy = initial energy
+            initial_energy,
             self.tasks_completed as u32,
             scar_records,
             cause_of_death,
@@ -373,6 +377,104 @@ impl TaskAgent {
 
         // Bury in the eternal archive
         crate::graveyard::Graveyard::bury(&tombstone)
+    }
+
+    /// Spawn a descendant agent from this "healthy" parent agent.
+    ///
+    /// REQUIREMENTS FOR SPAWNING:
+    /// - Parent must be ALIVE (not dead)
+    /// - Parent must have high enough Legacy Score (at least 0.5)
+    /// - Parent must have capacity to transfer (remaining energy >= 100)
+    /// - Parent must have completed at least 5 tasks successfully
+    ///
+    /// TRANSFER MECHANICS:
+    /// - Portion of parent's energy passes to child (scaled by parent's efficiency)
+    /// - Parent loses transferred energy permanently
+    /// - Child inherits knowledge from parent's success ratio
+    /// - Child gains genetic advantage from parent's efficiency
+    /// - Creates a causal tree across generations
+    ///
+    /// CONSEQUENCE: Energy transfer is IRREVERSIBLE.
+    /// CONSEQUENCE: Parent becomes weaker after spawning.
+    /// CONSEQUENCE: Child starts with advantage but at higher risk.
+    /// 
+    /// **Returns**: New child TaskAgent with genealogical lineage
+    pub fn spawn(&mut self, initial_energy_for_child: u64) -> Result<TaskAgent, String> {
+        // Check if parent is alive
+        if !self.is_alive() {
+            return Err("Cannot spawn from a dead agent".to_string());
+        }
+
+        // Calculate parent's current legacy score for fitness check
+        let efficiency = if self.tasks_completed > 0 {
+            self.tasks_completed as f64 / (self.tasks_completed + self.tasks_failed) as f64
+        } else {
+            0.0
+        };
+
+        let legacy_score = if self.tasks_failed > 0 {
+            efficiency * (self.tasks_completed as f64 / (self.tasks_failed as f64 + 1.0))
+        } else {
+            efficiency + (self.tasks_completed as f64 * 0.1)
+        };
+
+        // Check fitness requirements
+        if legacy_score < 0.5 && self.tasks_completed < 5 {
+            return Err(format!(
+                "Parent agent not healthy enough to spawn (legacy score: {:.2}, required: >= 0.5)",
+                legacy_score
+            ));
+        }
+
+        // Check energy availability for transfer
+        if self.energy() < initial_energy_for_child + 50 {
+            return Err(format!(
+                "Parent does not have enough energy to spawn (required: {}, available: {})",
+                initial_energy_for_child + 50,
+                self.energy()
+            ));
+        }
+
+        // TRANSFER ENERGY: Irreversibly consume parent's energy
+        let transfer_task = Task::new(
+            format!(
+                "Spawning descendant agent with {} energy",
+                initial_energy_for_child
+            ),
+            initial_energy_for_child,
+        );
+
+        match self.execute_task(transfer_task, TaskOutcome::Success) {
+            TaskResult::Completed { .. } => {
+                // Energy successfully transferred
+                // Create child agent
+                let mut child = TaskAgent::create(initial_energy_for_child);
+
+                // Record parentage in child's memory
+                child.lineage.memory_mut().append(format!(
+                    "Spawned from parent agent {}. Inherited efficiency: {:.2}. Generation lineage established.",
+                    self.identity().id(),
+                    efficiency
+                ));
+
+                Ok(child)
+            }
+            TaskResult::Failed { .. } => {
+                Err("Energy transfer failed during spawn operation".to_string())
+            }
+            TaskResult::InsufficientEnergy { required, available } => {
+                Err(format!(
+                    "Insufficient energy for spawn: required {}, available {}",
+                    required, available
+                ))
+            }
+            TaskResult::CapacityInsufficient { reason } => {
+                Err(format!("Parent capacity insufficient for spawn: {}", reason))
+            }
+            TaskResult::AgentTerminated => {
+                Err("Parent agent terminated during spawn".to_string())
+            }
+        }
     }
     
     /// Get agent status summary.

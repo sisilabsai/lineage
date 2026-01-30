@@ -1,0 +1,43 @@
+{
+  "identity": {
+    "id": "c8503c3582e708b02d4180f1266bbc3afe8b9b5255da5fdfe9f2a83ae600eb5b",
+    "creation_time": "2026-01-30T06:41:04.349939600Z",
+    "identity_hash": "Identity { id: \"c8503c3582e708b02d4180f1266bbc3afe8b9b5255da5fdfe9f2a83ae600eb5b\", birth_time: 1769755265349006800, entropy: [225, 117, 159, 123, 224, 139, 76, 237, 161, 254, 91, 143, 244, 115, 133, 84, 225, 118, 161, 126, 228, 144, 82, 244, 169, 7, 101, 154, 0, 128, 147, 99] }"
+  },
+  "metabolism": {
+    "final_energy": 0,
+    "peak_energy": 1000,
+    "initial_energy": 1000,
+    "efficiency_ratio": 0.009,
+    "tasks_completed": 9
+  },
+  "pathology": {
+    "scars": [
+      {
+        "timestamp": "2026-01-30T06:41:05.349890100Z",
+        "severity": "Fatal",
+        "description": "Energy depletion",
+        "context": null
+      }
+    ],
+    "scar_count": 1,
+    "cause_of_death": "Energy depletion",
+    "death_timestamp": "2026-01-30T06:41:05.349945700Z"
+  },
+  "causal_chain": {
+    "merkle_root": "ff904fbc0d4746c8f7958910724517cad560386af5f5a0bd1f100353a8ca5862",
+    "event_hashes": [
+      "2f10ad4295cffc26e5f15da270b63d588ceb67fdea65ec564b52b303fa18645e"
+    ],
+    "total_events": 1
+  },
+  "parentage": {
+    "parent_id": null,
+    "inherited_capacity": null,
+    "inherited_knowledge": null,
+    "generation": 0
+  },
+  "signature": "7857f3cee770229cf3233ac4592b90fff2ef87b7c6259c6f93d6aec6e395a1a6",
+  "burial_timestamp": "2026-01-30T06:41:05.350054100Z",
+  "schema_version": 1
+}

@@ -136,6 +136,13 @@ impl Lineage {
         &self.memory
     }
 
+    /// Returns mutable access to memory for appending records.
+    /// 
+    /// **CONSEQUENCE**: Memory is append-only, so only new records can be added.
+    pub fn memory_mut(&mut self) -> &mut Memory {
+        &mut self.memory
+    }
+
     /// Returns read-only access to metabolism state.
     pub fn metabolism(&self) -> &Metabolism {
         &self.metabolism

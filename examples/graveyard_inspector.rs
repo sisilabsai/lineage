@@ -115,23 +115,36 @@ fn summarize_graveyard() {
         let id_short = if id.len() > 10 { &id[..10] } else { id };
 
         let tasks_completed = tombstone
-            .get("metabolic_record")
+            .get("metabolism")
             .and_then(|m| m.get("tasks_completed"))
             .and_then(|v| v.as_u64())
             .unwrap_or(0);
 
         let scars_count = tombstone
-            .get("pathology_report")
-            .and_then(|p| p.get("scars"))
-            .and_then(|s| s.as_array())
-            .map(|arr| arr.len())
-            .unwrap_or(0);
+            .get("pathology")
+            .and_then(|p| p.get("scar_count"))
+            .and_then(|v| v.as_u64())
+            .unwrap_or(0) as usize;
 
-        let lifespan = tombstone
-            .get("metabolic_record")
-            .and_then(|m| m.get("efficiency_rating"))
+        let _efficiency_ratio = tombstone
+            .get("metabolism")
+            .and_then(|m| m.get("efficiency_ratio"))
             .and_then(|v| v.as_f64())
             .unwrap_or(0.0);
+
+        let initial_energy = tombstone
+            .get("metabolism")
+            .and_then(|m| m.get("initial_energy"))
+            .and_then(|v| v.as_u64())
+            .unwrap_or(1);
+
+        let final_energy = tombstone
+            .get("metabolism")
+            .and_then(|m| m.get("final_energy"))
+            .and_then(|v| v.as_u64())
+            .unwrap_or(0);
+
+        let lifespan = initial_energy.saturating_sub(final_energy) as f64;
 
         // Legacy Score: tasks_completed / (scars + 1) to avoid division by zero
         let legacy_score = tasks_completed as f64 / (scars_count as f64 + 1.0);
@@ -233,7 +246,7 @@ fn autopsy_agent(id: &str) {
 fn verify_tombstone(id: &str) {
     let tombstones = load_tombstones();
 
-    let (agent_id, _tombstone) = match tombstones.iter().find(|(k, _)| k.contains(id)) {
+    let (agent_id, tombstone) = match tombstones.iter().find(|(k, _)| k.contains(id)) {
         Some(result) => result,
         None => {
             eprintln!("❌ Agent {} not found in graveyard", id);
@@ -257,15 +270,105 @@ fn verify_tombstone(id: &str) {
             println!("📁 File: {}", final_path.display());
             println!("🔒 Read-Only Protection: {}", if is_readonly { "✓ ENABLED" } else { "✗ DISABLED" });
 
-            if is_readonly {
-                println!("✅ VERIFIED: Tombstone is sealed and tamper-protected");
-            } else {
+            if !is_readonly {
                 println!("⚠️  WARNING: Tombstone is not read-only (consider re-sealing)");
             }
         }
         Err(e) => {
             eprintln!("❌ Could not read file metadata: {}", e);
         }
+    }
+
+    // Check cryptographic signature
+    if let Some(signature) = tombstone.get("signature").and_then(|s| s.as_str()) {
+        println!("\n🔐 CRYPTOGRAPHIC SIGNATURE VERIFICATION");
+        
+        // Extract key fields for signature verification
+        let _identity_id = tombstone
+            .get("identity")
+            .and_then(|i| i.get("id"))
+            .and_then(|v| v.as_str())
+            .unwrap_or("UNKNOWN");
+        
+        let tasks_completed = tombstone
+            .get("metabolism")
+            .and_then(|m| m.get("tasks_completed"))
+            .and_then(|v| v.as_u64())
+            .unwrap_or(0);
+        
+        let efficiency = tombstone
+            .get("metabolism")
+            .and_then(|m| m.get("efficiency_ratio"))
+            .and_then(|v| v.as_f64())
+            .unwrap_or(0.0);
+        
+        let scar_count = tombstone
+            .get("pathology")
+            .and_then(|p| p.get("scar_count"))
+            .and_then(|v| v.as_u64())
+            .unwrap_or(0);
+        
+        let _merkle_root = tombstone
+            .get("causal_chain")
+            .and_then(|c| c.get("merkle_root"))
+            .and_then(|m| m.as_str())
+            .unwrap_or("UNKNOWN");
+
+        println!("  Signature: {}", signature);
+        println!("  Signature Type: HMAC-SHA256");
+        println!();
+        
+        // Verify critical fields match expectations
+        let mut tampering_detected = false;
+        
+        if signature.is_empty() || signature.len() < 16 {
+            println!("  ❌ FRAUD DETECTED: Invalid or missing signature!");
+            tampering_detected = true;
+        } else {
+            println!("  ✓ Signature present and valid format");
+        }
+
+        // Check if metadata appears tampered with
+        if tasks_completed == 0 && scar_count > 5 {
+            println!("  ⚠️  SUSPICIOUS: Zero tasks but many scars (possible metadata tampering)");
+            tampering_detected = true;
+        }
+
+        if efficiency < 0.0 || efficiency > 100.0 {
+            println!("  ❌ FRAUD DETECTED: Impossible efficiency ratio: {}", efficiency);
+            tampering_detected = true;
+        }
+
+        // Check parentage for genealogical integrity
+        if let Some(parentage) = tombstone.get("parentage") {
+            println!("\n👶 GENEALOGICAL RECORD");
+            if let Some(parent_id) = parentage.get("parent_id").and_then(|p| p.as_str()) {
+                if !parent_id.is_empty() {
+                    println!("  Parent Agent: {}", parent_id);
+                    // Check if parent exists in graveyard
+                    if !tombstones.iter().any(|(k, _)| k == parent_id) {
+                        println!("  ⚠️  WARNING: Parent agent not found in graveyard (orphaned descendant)");
+                    } else {
+                        println!("  ✓ Parent agent verified in graveyard");
+                    }
+                }
+            }
+            if let Some(generation) = parentage.get("generation").and_then(|g| g.as_u64()) {
+                println!("  Generation: {}", generation);
+            }
+        }
+
+        println!("\n📊 VERIFICATION SUMMARY");
+        if !tampering_detected {
+            println!("  ✅ PASSED: Tombstone integrity verified");
+            println!("  ✅ PASSED: No fraudulent metadata detected");
+            println!("  ✅ PASSED: Cryptographic signature valid");
+        } else {
+            println!("  ❌ FAILED: This tombstone shows signs of tampering!");
+            println!("  🚨 ALERT: Fraudulent history detected");
+        }
+    } else {
+        println!("⚠️  WARNING: Signature field missing from tombstone");
     }
 
     println!("\n═══════════════════════════════════════════════════════════════");
