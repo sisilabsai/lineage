@@ -1,12 +1,12 @@
 [package]
-name = "lineage"
+name = "lineage-rs"
 version = "0.1.0"
 edition = "2024"
 authors = ["Lineage Project"]
 description = "Software identity preserved through irreversible change"
 readme = "CRATES_IO_README.md"
 repository = "https://github.com/sisilabsai/lineage"
-documentation = "https://docs.rs/lineage"
+documentation = "https://docs.rs/lineage-rs"
 homepage = "https://github.com/sisilabsai/lineage"
 keywords = ["identity", "consequence", "immutable", "permanent", "trustworthy"]
 categories = ["development-tools", "simulation"]
