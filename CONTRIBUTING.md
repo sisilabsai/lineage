@@ -1,5 +1,32 @@
 # Contributing to Lineage
 
+## An Invitation
+
+This is a serious project with serious principles.
+
+If you believe that **consequence matters**, that **permanence is feature not bug**, and that **integrity is more important than convenience**, then we are building the future together.
+
+We are looking for collaborators who want to fundamentally rethink how software handles identity, consequence, and trust.
+
+If this resonates with you, read on. This is your project.
+
+---
+
+## What We're Building
+
+Lineage is not another framework optimizing for adoption metrics.
+
+It is a **manifesto in code**: a proof that systems can be designed where:
+
+- Identity is permanent and cannot be erased
+- History is immutable and cannot be rewritten
+- Consequence is irreversible and cannot be undone
+- Trust is earned through mathematics, not promises
+
+We are building proof that **another way is possible**.
+
+---
+
 ## Core Principle
 
 Ontological integrity outranks all other concerns.
@@ -12,10 +39,16 @@ Features, convenience, performance, ergonomics, and compatibility are secondary 
 
 Read in order:
 
-1. [FREEZE.md](FREEZE.md) — The ontological freeze declaration
-2. [README.md](README.md) — The system documentation
+1. [MANIFESTO.md](MANIFESTO.md) — The philosophical declaration
+2. [DOCTRINE.md](DOCTRINE.md) — The irreducible principles
+3. [FREEZE.md](FREEZE.md) — The ontological freeze declaration
+4. [README.md](README.md) — The system documentation
 
 If you disagree with irreversibility as a foundational constraint, this project is not for you.
+
+If you believe consequence should be optional, we cannot collaborate.
+
+If you think "just this once" exceptions are acceptable, this is not your project.
 
 ---
 
