@@ -4,9 +4,13 @@ version = "0.1.0"
 edition = "2024"
 authors = ["Lineage Project"]
 description = "Software identity preserved through irreversible change"
-readme = "README.md"
-keywords = ["ontology", "identity", "consequences", "irreversible"]
-categories = ["data-structures", "no-std"]
+readme = "CRATES_IO_README.md"
+repository = "https://github.com/sisilabsai/lineage"
+documentation = "https://docs.rs/lineage"
+homepage = "https://github.com/sisilabsai/lineage"
+keywords = ["identity", "consequence", "immutable", "permanent", "trustworthy"]
+categories = ["development-tools", "simulation"]
+license = "MIT"
 
 [lib]
 name = "lineage"
