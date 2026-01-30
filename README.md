@@ -82,6 +82,9 @@ cargo build --release
 # Main demonstration (shows all system features)
 cargo run
 
+# Descendancy & Generational Lineage
+cargo run --example descendancy_demo        # Spawn, inheritance, and cryptographic seals
+
 # Trust Score Dashboard - Interactive TUI with 5 agents
 cargo run --example trust_score_dashboard --release
 
@@ -89,6 +92,7 @@ cargo run --example trust_score_dashboard --release
 cargo run --example ghost_in_the_machine          # Single agent death and burial
 cargo run --example multi_agent_competition       # Population dynamics + auto-burial
 cargo run --example graveyard_inspector -- --summarize   # Analyze dead agents
+cargo run --example graveyard_inspector -- --verify <ID> # Check cryptographic signatures
 cargo run --example graveyard_inspector -- --darwinian   # Find evolutionary winners
 
 # Run archaeologist scenario (5 generations, ~50 dead agents)
@@ -132,6 +136,90 @@ The Graveyard is a persistent, tamper-proof archive of dead agents. Every deceas
 cargo run --example ghost_in_the_machine
 cargo run --example graveyard_inspector -- --summarize
 ```
+
+---
+
+## 🧬 Descendancy & Generational Lineage
+
+Healthy agents can now spawn descendants, creating a causal tree across generations. This implements evolutionary pressure and inheritance of efficiency metrics.
+
+### The `spawn()` Method
+
+**Requirements for spawning:**
+- Parent must be ALIVE (not dead)
+- Parent must have legacy score ≥ 0.5
+- Parent must have sufficient energy for transfer (child_energy + 50)
+- Parent should have completed 5+ tasks successfully
+
+**Energy Transfer Mechanics:**
+- Parent irreversibly loses transferred energy
+- Child inherits with efficiency knowledge from parent
+- Genealogical lineage permanently recorded
+- Child gains genetic advantage but at higher risk
+
+**Example:**
+```bash
+cargo run --example descendancy_demo
+```
+
+This demonstrates:
+- Part 1: Parent executes 8 tasks, builds legacy score 8.00
+- Part 2: Parent spawns child with 300 energy transfer
+- Part 3: Both agents buried with cryptographic seals
+- Part 4: Signatures verified - no tampering detected
+
+### Genealogical Records
+
+Children record their parent's ID in their memory and inheritance details. The Graveyard tracks parent-child relationships, enabling evolutionary analysis:
+
+```bash
+cargo run --example graveyard_inspector -- --autopsy <CHILD_ID>
+```
+
+Shows genealogical records and inheritance metrics.
+
+---
+
+## 🔐 Cryptographic Seals (Tamper Detection)
+
+All tombstones are now signed with **HMAC-SHA256**, preventing fraudulent modifications. If someone manually edits a JSON `.tomb` file to increase their Legacy Score, the signature will fail verification.
+
+### What's Protected
+
+The cryptographic seal covers:
+- Agent identity and creation time
+- All metabolic records (energy, efficiency, tasks)
+- Every scar with timestamp and severity
+- Cause of death and burial timestamp
+- Complete causal chain
+
+### Signature Verification
+
+```bash
+# Verify a specific agent's signature
+cargo run --example graveyard_inspector -- --verify <AGENT_ID>
+
+# Summarize archive (includes signature status)
+cargo run --example graveyard_inspector -- --summarize
+```
+
+**Output Example:**
+```
+✓ Parent's cryptographic signature verified
+  Status: No tampering detected
+✓ Child's cryptographic signature verified
+  Status: No tampering detected
+  Genealogy: Descended from parent agent
+```
+
+### Fraudulent History Detection
+
+If a Legacy Score or other critical field is tampered with:
+```
+✗ Signature verification failed: FRAUDULENT HISTORY DETECTED
+```
+
+This prevents agents from falsifying their records in the permanent archive.
 
 ---
 
