@@ -502,10 +502,15 @@ This is **by design**. If your use case needs these, Lineage is not the right to
 
 ## 🤝 Contributing
 
-### Before You Contribute
+### This is a Serious Project
 
-1. Read **[CONTRIBUTING.md](CONTRIBUTING.md)**
-2. Understand **[CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md)**
+Before contributing, you must understand and agree with our values:
+
+1. **Read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** — Our community standards (required)
+2. **Read [CONTRIBUTING.md](CONTRIBUTING.md)** — How to contribute (required)
+3. **Understand [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md)** — System design (required)
+
+We are looking for collaborators who believe in **consequence, permanence, and integrity**. If you do, welcome.
 
 ### What Will Be Rejected
 
