@@ -41,11 +41,36 @@ cargo test                   # 141 tests
 
 **Interactive Examples:**
 ```bash
-cargo run --example trust_score_dashboard --release    # Real-time trust dynamics
-cargo run --example descendancy_demo                   # Generational lineage
-cargo run --example lifecycle_demo                     # System lifecycle
-cargo run --example graveyard_inspector -- --summarize # Tamper-proof archive
+cargo run --example trust_score_dashboard --release          # Real-time trust dynamics
+cargo run --example descendancy_demo                         # Generational lineage
+cargo run --example lifecycle_demo                           # System lifecycle
+cargo run --example graveyard_inspector -- --summarize       # Tamper-proof archive
+cargo run --example decentralized_trading_agent --release    # AI trading with real consequences
 ```
+
+### Lineage Finance: Evolutionary Trading Platform
+
+**NEW!** Lineage now includes a complete finance module for building decentralized, autonomous AI trading platforms. Watch agents that **live, trade, evolve, and die**:
+
+```bash
+cargo run --example decentralized_trading_agent
+```
+
+**Output**: Live demo of evolutionary trading with:
+- ✅ Irreversible trades (no reset buttons)
+- ✅ Permanent scars from losses
+- ✅ Spawning offspring (inheritance)
+- ✅ Trust-based access control
+- ✅ Multi-agent arena competition
+- ✅ Blockchain integration (ready)
+- ✅ Evolutionary AI mechanics (ready)
+- ✅ Irreversible governance (ready)
+
+**What makes it radical**: Unlike traditional trading bots (infinite retries, backtests forever), Lineage traders have **finite capital, permanent consequences, and evolutionary dynasties**. This is **Darwinian DeFi**—where survival drives intelligence.
+
+**Get Started**: 
+- [Finance Quick Start](FINANCE_GETTING_STARTED.md)
+- [Implementation Roadmap](FINANCE_IMPLEMENTATION_ROADMAP.md)
 
 ### Your First System
 
@@ -121,18 +146,27 @@ cargo run --example graveyard_inspector -- --verify <AGENT_ID>
 
 ```
 src/
-├── lib.rs          # Public API
-├── agent.rs        # TaskAgent type
-├── behavior.rs     # PulseBehavior contracts
-├── identity.rs     # Unique identification
-├── lineage.rs      # Core system
-├── memory.rs       # Append-only log
-├── metabolism.rs   # Energy & death
-├── scar.rs         # Permanent consequences
-└── trust.rs        # Trust calculations
+├── lib.rs               # Public API
+├── agent.rs             # TaskAgent type
+├── behavior.rs          # PulseBehavior contracts
+├── identity.rs          # Unique identification
+├── lineage.rs           # Core system
+├── memory.rs            # Append-only log
+├── metabolism.rs        # Energy & death
+├── scar.rs              # Permanent consequences
+├── trust.rs             # Trust calculations
+└── finance/             # 🆕 EVOLUTIONARY TRADING PLATFORM
+    ├── mod.rs           # Module configuration
+    ├── agent.rs         # FinanceAgent lifecycle
+    ├── trade.rs         # Irreversible trade execution
+    ├── scars.rs         # Financial damage system
+    ├── spawning.rs      # Offspring inheritance
+    ├── trust_scoring.rs # Cryptographic trust
+    ├── arena.rs         # Multi-agent competition
+    └── advanced.rs      # Blockchain, evolution, governance
 
-examples/           # 12 interactive demos
-tests/              # 141 comprehensive tests
+examples/               # 13 interactive demos (including decentralized_trading_agent)
+tests/                  # 141 comprehensive tests
 ```
 
 ## System Guarantees
@@ -200,12 +234,15 @@ git push origin feature/my-feature
 
 ## Examples
 
-### 12 Interactive Demonstrations
+### 13 Interactive Demonstrations
 
 **Core Systems:**
 - `cargo run` — Main showcase
 - `trust_score_dashboard` — Real-time trust UI
 - `lifecycle_demo` — Full agent lifecycle
+
+**Finance & Trading (NEW):**
+- `decentralized_trading_agent` — Evolutionary AI trading with irreversible consequences
 
 **Advanced:**
 - `descendancy_demo` — Generational inheritance

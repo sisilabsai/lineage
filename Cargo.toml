@@ -31,3 +31,7 @@ ratatui = "0.26"
 crossterm = "0.27"
 hmac = "0.12"
 hex = "0.4"
+clap = { version = "4.4", features = ["derive"] }
+plotters = "0.3"
+gif = "0.13"
+image = "0.24"

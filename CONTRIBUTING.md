@@ -124,7 +124,7 @@ If any answer is yes, the PR is rejected regardless of code quality.
 
 All PRs must:
 
-- Pass all existing tests (145 tests minimum)
+- Pass all existing tests (120+ tests minimum)
 - Add tests for new functionality
 - Include invariant tests if touching core types
 - Demonstrate no regression in constraint enforcement
@@ -227,3 +227,276 @@ They define the system's identity.
 Weakening them does not improve Lineage.
 
 It destroys what Lineage is.
+
+---
+
+# Technical Contribution Guide
+
+Once you accept the philosophical foundation above, here's how to contribute code:
+
+## Getting Started
+
+### Prerequisites
+
+- **Rust 1.70+** (install from [rustup.rs](https://rustup.rs/))
+- **Cargo** (comes with Rust)
+- **Git**
+
+### Setup
+
+```bash
+git clone https://github.com/lineage-finance/lineage.git
+cd lineage
+cargo build
+cargo test
+```
+
+### Running Examples
+
+```bash
+# Default: 100K capital, 100 rounds
+cargo run --example decentralized_trading_agent
+
+# Custom capital and rounds
+cargo run --example decentralized_trading_agent -- --capital 75000 --rounds 300
+
+# Save results to CSV
+cargo run --example decentralized_trading_agent -- --output results.csv
+
+# Specific strategy
+cargo run --example decentralized_trading_agent -- --strategy momentum --verbose
+```
+
+## Project Structure
+
+```
+src/
+├── agent.rs                 # Base Agent trait and behavior types
+├── behavior.rs              # Core behavior implementations
+├── graveyard.rs             # Archived agents (irreversible)
+├── identity.rs              # AgentId, genealogy tracking
+├── lineage.rs               # Inheritance and spawning logic
+├── memory.rs                # Memory mechanisms (sealed)
+├── metabolism.rs            # Energy/resource management
+├── scar.rs                  # Injury tracking (irreversible)
+├── trust.rs                 # Trust scoring system
+├── finance/
+│   ├── agent.rs             # FinanceAgent implementation
+│   ├── arena.rs             # Competitive arena simulation
+│   ├── trade.rs             # Trade execution (immutable)
+│   ├── trust.rs             # Trust formula calculations
+│   └── spawning.rs          # Offspring creation
+├── main.rs                  # CLI entry point
+└── lib.rs                   # Public API
+
+examples/
+├── decentralized_trading_agent.rs    # Main trading demo (CLI customizable)
+├── interactive_consensus_arena.rs    # Arena with user interaction
+└── ...
+
+tests/
+└── [integration tests]
+```
+
+## Code Style
+
+- Use `cargo fmt` to format
+- Use `cargo clippy` to lint
+- Follow Rust naming conventions:
+  - `snake_case` for functions, variables, modules
+  - `PascalCase` for types, traits, structs
+  - `SCREAMING_SNAKE_CASE` for constants
+- Document all public items with examples
+
+### Documentation Template
+
+```rust
+/// Brief one-line description.
+///
+/// Longer explanation if relevant. Include edge cases and
+/// any irreversibility guarantees.
+///
+/// # Examples
+/// ```
+/// let agent = FinanceAgent::new("Test".to_string(), 100_000, 0);
+/// assert_eq!(agent.get_capital(), 100_000);
+/// ```
+pub fn my_function() { }
+```
+
+## Testing
+
+### Add Unit Tests
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_my_feature() {
+        // Test implementation
+        assert_eq!(result, expected);
+    }
+}
+```
+
+### Add Integration Tests
+
+Place in `tests/` directory:
+
+```rust
+use lineage::finance::FinanceAgent;
+
+#[test]
+fn test_full_workflow() {
+    let mut agent = FinanceAgent::new("Test".to_string(), 100_000, 0);
+    // Full workflow test
+}
+```
+
+### Run Tests
+
+```bash
+cargo test              # All tests
+cargo test -- --nocapture  # Show output
+cargo test finance::    # Module tests
+```
+
+Aim for 80%+ code coverage on new code.
+
+## Contribution Areas
+
+### 1. Finance Engine 📊
+- New trading strategies
+- Improved market simulation
+- Enhanced metrics
+- Performance optimization
+
+### 2. Trust Systems 🔐
+- Enhanced scoring algorithms
+- Blockchain integration
+- Audit trail improvements
+- Governance proposals
+
+### 3. Evolutionary Mechanics 🧬
+- Trait inheritance enhancements
+- Mutation strategies
+- Spawning improvements
+- Genealogy tracking
+
+### 4. Machine Learning 🤖
+- ML model integration (tch-rs)
+- Feature engineering
+- Reinforcement learning
+- Strategy optimization
+
+### 5. Visualization 📈
+- Dashboard implementation
+- Metrics visualization
+- Real-time monitoring
+- Chart generation
+
+### 6. Documentation 📚
+- API documentation
+- Tutorials
+- Examples
+- Architecture guides
+
+### 7. Testing & Quality ✅
+- Unit tests
+- Integration tests
+- Benchmarks
+- Property tests
+
+## Pull Request Checklist
+
+- [ ] Code compiles: `cargo build`
+- [ ] Tests pass: `cargo test`
+- [ ] Formatting: `cargo fmt` (run this!)
+- [ ] Linting: `cargo clippy` (no warnings)
+- [ ] No new warnings generated
+- [ ] Added/updated tests for new functionality
+- [ ] Documentation is complete and clear
+- [ ] Commits follow conventional format
+- [ ] PR description explains what and why
+- [ ] No forbidden operations added
+- [ ] No bypass patterns introduced
+- [ ] All invariants preserved
+
+## PR Description Template
+
+```markdown
+## Description
+What does this PR do?
+
+## Type
+- [ ] Bug fix
+- [ ] Feature
+- [ ] Refactor
+- [ ] Test/Documentation
+
+## Related Issues
+Closes #123
+
+## Changes
+- What was changed
+- Why it was changed
+- How it preserves constraints
+
+## Testing
+- [ ] New tests added
+- [ ] Existing tests pass
+- [ ] Invariants verified
+
+## Verification
+Steps to test this change:
+
+```bash
+cargo run --example decentralized_trading_agent -- --capital 50000 --rounds 100
+```
+
+Expected output: [describe]
+```
+
+## Commit Message Format
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: add feature description
+fix: correct specific bug
+docs: update documentation
+test: add tests for feature
+refactor: improve code structure
+chore: dependency updates
+```
+
+## Acceptance Criteria
+
+All PRs must satisfy:
+
+1. **Ontological**: No weakening of constraints
+2. **Functional**: Feature works as designed, no regressions
+3. **Tested**: Tests pass, 80%+ coverage on new code
+4. **Documented**: Clear docs, normative language for constraints
+5. **Formatted**: cargo fmt and cargo clippy pass
+6. **Committed**: Clear, conventional messages
+
+## Getting Help
+
+- **Questions**: Open a [Discussion](../../discussions)
+- **Bugs**: Open an [Issue](../../issues) with "bug" label
+- **Features**: [Discussions](../../discussions) or [Issues](../../issues) with "enhancement"
+- **Clarifications**: Read MANIFESTO.md, DOCTRINE.md, FREEZE.md
+
+## Important Reminders
+
+Before contributing, please:
+
+1. Read the philosophical documents (yes, all of them)
+2. Confirm you accept irreversibility as foundational
+3. Understand that PRs weakening constraints will be rejected
+4. Accept that code quality won't override ontological concerns
+
+Thank you for building with integrity! 🚀

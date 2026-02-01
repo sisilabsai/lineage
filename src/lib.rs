@@ -68,6 +68,7 @@ pub mod behavior;
 pub mod trust;
 pub mod agent;
 pub mod graveyard;
+pub mod finance;
 
 // Re-export main types for convenience
 pub use lineage::{Lineage, OperationResult, OperationError, LineageStatus};
@@ -79,3 +80,15 @@ pub use behavior::{PulseBehavior, PulseOutput};
 pub use trust::{TrustedActor, TrustCapability, TrustResult, ViolationType};
 pub use agent::{TaskAgent, Task, TaskOutcome, TaskResult};
 pub use graveyard::{Graveyard, Tombstone, GraveyardError, IdentityBlock, MetabolicRecord, PathologyReport};
+
+// Finance module re-exports
+pub use finance::{
+    FinanceAgent, FinanceAgentStatus, AgentMetrics,
+    Trade, TradeDirection, TradeResult, TradeOperation, ExecutionError,
+    FinancialScar, ScarImpact, FinancialDamage,
+    Offspring, OffspringTraits, InheritanceStrategy,
+    PerformanceScore, TrustFormula, TrustGrant,
+    Arena, CompetitionResult, MarketState,
+    BlockchainHook, EvolutionaryStrategy,
+    FinanceConfig,
+};
