@@ -24,6 +24,7 @@ pub mod trust_scoring;
 pub mod arena;
 pub mod advanced;
 pub mod market_data;
+pub mod metrics;
 
 // Re-export core types
 pub use agent::{FinanceAgent, FinanceAgentStatus, AgentMetrics};
@@ -33,7 +34,8 @@ pub use spawning::{Offspring, OffspringTraits, InheritanceStrategy};
 pub use trust_scoring::{PerformanceScore, TrustFormula, TrustGrant};
 pub use arena::{Arena, CompetitionResult, MarketState};
 pub use advanced::{BlockchainHook, EvolutionaryStrategy, GovernanceVote, ResurrectionMechanic, ResurrectionRecord};
-pub use market_data::{MarketDataClient, PriceData, PricePoint, MarketDataConfig, MarketDataError};
+pub use market_data::{MarketDataClient, PriceData, PricePoint, MarketDataConfig, MarketDataError, CircuitBreakerState};
+pub use metrics::{MetricsCollector, MetricsSnapshot};
 
 /// Configuration for finance agents
 #[derive(Debug, Clone)]

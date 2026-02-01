@@ -13,6 +13,15 @@ use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 use thiserror::Error;
 use std::sync::atomic::{AtomicU64, Ordering};
+use super::metrics::MetricsCollector;
+
+/// Circuit breaker states
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum CircuitBreakerState {
+    Closed,    // Normal operation
+    Open,      // Failing, reject requests
+    HalfOpen,  // Testing if service recovered
+}
 
 /// Market data API client with built-in rate limiting
 pub struct MarketDataClient {
@@ -33,6 +42,24 @@ pub struct MarketDataClient {
     
     /// Retry configuration
     retry_config: RetryConfig,
+    
+    /// Circuit breaker state
+    circuit_breaker_state: Arc<Mutex<CircuitBreakerState>>,
+    
+    /// Circuit breaker failure threshold
+    failure_threshold: usize,
+    
+    /// Current failure count
+    failure_count: Arc<Mutex<usize>>,
+    
+    /// When circuit was opened
+    circuit_opened_at: Arc<Mutex<Option<Instant>>>,
+    
+    /// Circuit breaker recovery timeout
+    recovery_timeout: Duration,
+    
+    /// Metrics collector
+    pub metrics: MetricsCollector,
 }
 
 /// Simple rate limiter state for token bucket
@@ -151,6 +178,9 @@ pub enum MarketDataError {
     
     #[error("API error: {0}")]
     ApiError(String),
+    
+    #[error("Circuit breaker is open - service temporarily unavailable")]
+    CircuitOpen,
 }
 
 /// CoinDesk API response structure
@@ -200,6 +230,12 @@ impl MarketDataClient {
             }),
             cache: Arc::new(Mutex::new(ResponseCache::new(100))),
             retry_config: RetryConfig::default(),
+            circuit_breaker_state: Arc::new(Mutex::new(CircuitBreakerState::Closed)),
+            failure_threshold: 5,
+            failure_count: Arc::new(Mutex::new(0)),
+            circuit_opened_at: Arc::new(Mutex::new(None)),
+            recovery_timeout: Duration::from_secs(30),
+            metrics: MetricsCollector::new(),
         }
     }
     
@@ -208,16 +244,14 @@ impl MarketDataClient {
         let mut last_refill = self.rate_limiter_state.last_refill.lock().unwrap();
         let now = Instant::now();
         
-        if let Ok(elapsed) = now.duration_since(*last_refill).as_secs_f64().try_into() {
-            let elapsed_secs: f64 = elapsed;
-            let tokens_to_add = (elapsed_secs * self.rate_limiter_state.refill_rate as f64) as u64;
-            
-            if tokens_to_add > 0 {
-                let current = self.rate_limiter_state.tokens.load(Ordering::SeqCst);
-                let new_tokens = (current + tokens_to_add).min(self.rate_limiter_state.refill_rate);
-                self.rate_limiter_state.tokens.store(new_tokens, Ordering::SeqCst);
-                *last_refill = now;
-            }
+        let elapsed_secs: f64 = now.duration_since(*last_refill).as_secs_f64();
+        let tokens_to_add = (elapsed_secs * self.rate_limiter_state.refill_rate as f64) as u64;
+        
+        if tokens_to_add > 0 {
+            let current = self.rate_limiter_state.tokens.load(Ordering::SeqCst);
+            let new_tokens = (current + tokens_to_add).min(self.rate_limiter_state.refill_rate);
+            self.rate_limiter_state.tokens.store(new_tokens, Ordering::SeqCst);
+            *last_refill = now;
         }
         
         let current = self.rate_limiter_state.tokens.load(Ordering::SeqCst);
@@ -229,12 +263,70 @@ impl MarketDataClient {
         }
     }
     
+    /// Check circuit breaker state and potentially transition it
+    fn check_circuit_breaker(&self) -> Result<(), MarketDataError> {
+        let mut state = self.circuit_breaker_state.lock().unwrap();
+        
+        match *state {
+            CircuitBreakerState::Closed => Ok(()),
+            CircuitBreakerState::Open => {
+                // Check if recovery timeout has passed
+                let opened_at = self.circuit_opened_at.lock().unwrap();
+                if let Some(time) = *opened_at {
+                    if time.elapsed() > self.recovery_timeout {
+                        drop(opened_at);
+                        *state = CircuitBreakerState::HalfOpen;
+                        self.metrics.record_circuit_recovery();
+                        Ok(())
+                    } else {
+                        Err(MarketDataError::CircuitOpen)
+                    }
+                } else {
+                    Err(MarketDataError::CircuitOpen)
+                }
+            }
+            CircuitBreakerState::HalfOpen => Ok(()),
+        }
+    }
+    
+    /// Record a failure and potentially open the circuit
+    fn record_failure(&self, error_type: &str) {
+        self.metrics.record_api_failure(error_type, 0);
+        
+        let mut count = self.failure_count.lock().unwrap();
+        *count += 1;
+        
+        if *count >= self.failure_threshold {
+            let mut state = self.circuit_breaker_state.lock().unwrap();
+            *state = CircuitBreakerState::Open;
+            let mut opened_at = self.circuit_opened_at.lock().unwrap();
+            *opened_at = Some(Instant::now());
+            self.metrics.record_circuit_break();
+        }
+    }
+    
+    /// Record a success and potentially close the circuit
+    fn record_success(&self, latency_ms: u64) {
+        self.metrics.record_api_success(latency_ms);
+        
+        let mut count = self.failure_count.lock().unwrap();
+        *count = 0;
+        
+        let mut state = self.circuit_breaker_state.lock().unwrap();
+        if *state == CircuitBreakerState::HalfOpen {
+            *state = CircuitBreakerState::Closed;
+        }
+    }
+    
     /// Fetch latest price data with rate limiting and retries
     pub async fn get_latest_prices(
         &self,
         market: &str,
         instruments: &[&str],
     ) -> Result<PriceData, MarketDataError> {
+        // Check circuit breaker
+        self.check_circuit_breaker()?;
+        
         let cache_key = format!("{}:{}", market, instruments.join(","));
         
         // Check cache first
@@ -243,9 +335,11 @@ impl MarketDataClient {
             if let Some(cached) = cache.get(&cache_key) {
                 // Try to parse cached response
                 if let Ok(data) = serde_json::from_str::<PriceData>(&cached) {
+                    self.metrics.record_cache_hit();
                     return Ok(data);
                 }
             }
+            self.metrics.record_cache_miss();
         }
         
         // Construct request URL
@@ -266,6 +360,7 @@ impl MarketDataClient {
         cache_key: &str,
     ) -> Result<PriceData, MarketDataError> {
         let mut backoff = self.retry_config.initial_backoff;
+        let start_time = Instant::now();
         
         for attempt in 0..=self.retry_config.max_retries {
             // Check rate limiter and wait if needed
@@ -273,6 +368,7 @@ impl MarketDataClient {
             while !self.acquire_token() {
                 wait_time += 10;
                 if wait_time > 1000 {
+                    self.metrics.record_rate_limited();
                     return Err(MarketDataError::RateLimited { retry_after_secs: 1 });
                 }
                 tokio::time::sleep(Duration::from_millis(10)).await;
@@ -294,6 +390,8 @@ impl MarketDataClient {
                             match response.json::<TickData>().await {
                                 Ok(tick_data) => {
                                     let price_data = self.convert_tick_to_price_data(tick_data);
+                                    let latency_ms = start_time.elapsed().as_millis() as u64;
+                                    self.record_success(latency_ms);
                                     
                                     // Cache successful response
                                     {
@@ -307,12 +405,14 @@ impl MarketDataClient {
                                     return Ok(price_data);
                                 }
                                 Err(e) => {
+                                    self.record_failure("ParseError");
                                     return Err(MarketDataError::ParseError(e.to_string()));
                                 }
                             }
                         }
                         reqwest::StatusCode::TOO_MANY_REQUESTS => {
                             // Rate limited - exponential backoff
+                            self.metrics.record_rate_limited();
                             if attempt < self.retry_config.max_retries {
                                 tokio::time::sleep(backoff).await;
                                 backoff = Duration::from_millis(
@@ -323,34 +423,40 @@ impl MarketDataClient {
                             return Err(MarketDataError::RateLimited { retry_after_secs: backoff.as_secs() });
                         }
                         reqwest::StatusCode::UNAUTHORIZED => {
+                            self.record_failure("AuthError");
                             return Err(MarketDataError::ApiError("Invalid API key".to_string()));
                         }
                         status => {
                             let status_code = status.as_u16();
                             if attempt < self.retry_config.max_retries && status.is_server_error() {
+                                self.record_failure(&format!("HTTP{}", status_code));
                                 tokio::time::sleep(backoff).await;
                                 backoff = Duration::from_millis(
                                     ((backoff.as_millis() as f32) * self.retry_config.backoff_multiplier) as u64
                                 ).min(self.retry_config.max_backoff);
                                 continue;
                             }
+                            self.record_failure(&format!("HTTP{}", status_code));
                             return Err(MarketDataError::ApiError(format!("HTTP {}", status_code)));
                         }
                     }
                 }
                 Err(e) => {
                     if attempt < self.retry_config.max_retries {
+                        self.record_failure("NetworkError");
                         tokio::time::sleep(backoff).await;
                         backoff = Duration::from_millis(
                             ((backoff.as_millis() as f32) * self.retry_config.backoff_multiplier) as u64
                         ).min(self.retry_config.max_backoff);
                         continue;
                     }
+                    self.record_failure("NetworkError");
                     return Err(MarketDataError::NetworkError(e.to_string()));
                 }
             }
         }
         
+        self.record_failure("MaxRetriesExceeded");
         Err(MarketDataError::RequestFailed("Max retries exceeded".to_string()))
     }
     
