@@ -90,5 +90,7 @@ pub use finance::{
     PerformanceScore, TrustFormula, TrustGrant,
     Arena, CompetitionResult, MarketState,
     BlockchainHook, EvolutionaryStrategy,
+    ResurrectionMechanic, ResurrectionRecord,
     FinanceConfig,
+    MarketDataClient, PriceData, PricePoint, MarketDataConfig, MarketDataError,
 };
