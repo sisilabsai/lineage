@@ -60,6 +60,7 @@ struct TradingAgent {
     wins: usize,
     losses: usize,
     last_trade_price: Option<f64>,
+    current_capital: u64,  // Track actual capital for accurate ROI
 }
 
 impl TradingAgent {
@@ -71,11 +72,24 @@ impl TradingAgent {
             wins: 0,
             losses: 0,
             last_trade_price: None,
+            current_capital: capital,
         }
     }
     
     fn is_alive(&self) -> bool {
-        self.agent.get_capital() > 0
+        self.current_capital > 0
+    }
+    
+    fn add_gain(&mut self, gain: u64) {
+        self.current_capital += gain;
+    }
+    
+    fn subtract_loss(&mut self, loss: u64) {
+        self.current_capital = self.current_capital.saturating_sub(loss);
+    }
+    
+    fn get_capital(&self) -> u64 {
+        self.current_capital
     }
     
     fn get_performance(&self) -> f64 {
@@ -219,13 +233,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 if rand_value() < win_probability {
                     agent.wins += 1;
                     // Win: add 2-5% to capital
-                    let gain = (agent.agent.get_capital() as f64 * (0.02 + rand_value() * 0.03)) as u64;
-                    agent.agent.metrics.capital += gain;
+                    let gain = (agent.get_capital() as f64 * (0.02 + rand_value() * 0.03)) as u64;
+                    agent.add_gain(gain);
                 } else {
                     agent.losses += 1;
                     // Loss: deduct 1-3% from capital
-                    let loss = (agent.agent.get_capital() as f64 * (0.01 + rand_value() * 0.02)) as u64;
-                    agent.agent.metrics.capital = agent.agent.metrics.capital.saturating_sub(loss);
+                    let loss = (agent.get_capital() as f64 * (0.01 + rand_value() * 0.02)) as u64;
+                    agent.subtract_loss(loss);
                 }
                 
                 agent.trades_executed += 1;
@@ -239,9 +253,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         for agent in &agents {
             if agent.is_alive() {
                 let perf = (agent.get_performance() * 100.0).round() as u32;
-                let roi = ((agent.agent.get_capital() as f64 / initial_capital as f64 - 1.0) * 100.0).round() as i32;
+                let roi = ((agent.get_capital() as f64 / initial_capital as f64 - 1.0) * 100.0).round() as i32;
                 println!("  Agent [{}]", agent.strategy);
-                println!("    Capital:  ${}", agent.agent.get_capital());
+                println!("    Capital:  ${}", agent.get_capital());
                 println!("    Trades:   {} (Wins: {}, Losses: {})", 
                     agent.trades_executed, agent.wins, agent.losses);
                 println!("    Win Rate: {}%", perf);
@@ -255,11 +269,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("║                    FINAL RANKINGS                          ║");
     println!("╚════════════════════════════════════════════════════════════╝\n");
     
-    agents.sort_by(|a, b| b.agent.get_capital().cmp(&a.agent.get_capital()));
+    agents.sort_by(|a, b| b.get_capital().cmp(&a.get_capital()));
     
     for (rank, agent) in agents.iter().enumerate() {
         if agent.is_alive() {
-            let final_capital = agent.agent.get_capital();
+            let final_capital = agent.get_capital();
             let roi = ((final_capital as f64 / initial_capital as f64 - 1.0) * 100.0).round() as i32;
             let perf = (agent.get_performance() * 100.0).round() as u32;
             
