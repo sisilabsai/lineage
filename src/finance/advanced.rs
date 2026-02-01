@@ -353,6 +353,165 @@ impl GovernanceProposal {
     }
 }
 
+/// Permadeath Economy - Resurrection Mechanic
+/// 
+/// Rare, scar-heavy revival system that enables speculative markets
+/// around agent resurrection. This creates a meta-game where:
+/// - Dead agents can be resurrected (very rare probability)
+/// - Resurrection is costly in scars (increases future operational costs)
+/// - Resurrected agents start with reduced capital
+/// - Resurrection events create market opportunities
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ResurrectionMechanic {
+    /// Probability of resurrection when agent dies (0.0-1.0)
+    pub resurrection_probability: f32,
+    
+    /// Capital multiplier on resurrection (e.g., 0.5 = 50% of original)
+    pub capital_recovery_rate: f32,
+    
+    /// Number of scars added on resurrection
+    pub resurrection_scar_cost: u32,
+    
+    /// Scar severity for resurrection (makes future trades more expensive)
+    pub scar_severity: String,
+    
+    /// Cooldown rounds before next resurrection is possible
+    pub resurrection_cooldown: u32,
+    
+    /// Cost in resources (e.g., community staking votes needed)
+    pub resurrection_cost: u64,
+    
+    /// Total resurrections in system (for metrics)
+    pub total_resurrections: u32,
+}
+
+impl ResurrectionMechanic {
+    /// Create default resurrection mechanic (1% chance, scar-heavy)
+    pub fn new() -> Self {
+        ResurrectionMechanic {
+            resurrection_probability: 0.01,           // 1% chance
+            capital_recovery_rate: 0.5,               // 50% capital recovery
+            resurrection_scar_cost: 3,                // 3 additional scars
+            scar_severity: "Major".to_string(),       // Expensive scars
+            resurrection_cooldown: 20,                // Can't be resurrected every round
+            resurrection_cost: 5000,                  // Community staking cost
+            total_resurrections: 0,
+        }
+    }
+    
+    /// Create permissive resurrection (testing/demo purposes)
+    pub fn permissive() -> Self {
+        ResurrectionMechanic {
+            resurrection_probability: 0.05,           // 5% chance
+            capital_recovery_rate: 0.75,              // 75% capital recovery
+            resurrection_scar_cost: 2,                // 2 scars
+            scar_severity: "Moderate".to_string(),
+            resurrection_cooldown: 10,
+            resurrection_cost: 1000,
+            total_resurrections: 0,
+        }
+    }
+    
+    /// Check if resurrection should occur (probability-based)
+    pub fn should_resurrect(&self) -> bool {
+        use rand::Rng;
+        let mut rng = rand::thread_rng();
+        rng.gen_range(0.0..1.0) < self.resurrection_probability
+    }
+    
+    /// Calculate resurrected capital amount
+    pub fn calculate_resurrected_capital(&self, original_capital: u64) -> u64 {
+        (original_capital as f32 * self.capital_recovery_rate) as u64
+    }
+    
+    /// Get resurrection cost message
+    pub fn get_resurrection_cost_message(&self) -> String {
+        format!(
+            "Resurrection activated! Cost: {} scars ({}), {} capital staked, {} round cooldown",
+            self.resurrection_scar_cost,
+            self.scar_severity,
+            self.resurrection_cost,
+            self.resurrection_cooldown
+        )
+    }
+}
+
+impl Default for ResurrectionMechanic {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Track resurrection events for metrics and speculation
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ResurrectionRecord {
+    /// Agent ID that was resurrected
+    pub agent_id: String,
+    
+    /// Round number when resurrection occurred
+    pub resurrection_round: u32,
+    
+    /// Capital before death
+    pub capital_before_death: u64,
+    
+    /// Capital after resurrection
+    pub capital_after_resurrection: u64,
+    
+    /// Scars accumulated from resurrection
+    pub resurrection_scars: u32,
+    
+    /// Previous death count for this agent
+    pub death_count: u32,
+    
+    /// Time cost (rounds until eligible for another resurrection)
+    pub cooldown_rounds_remaining: u32,
+}
+
+impl ResurrectionRecord {
+    /// Create new resurrection record
+    pub fn new(
+        agent_id: String,
+        round: u32,
+        capital_before: u64,
+        capital_after: u64,
+        scars: u32,
+        death_count: u32,
+        cooldown: u32,
+    ) -> Self {
+        ResurrectionRecord {
+            agent_id,
+            resurrection_round: round,
+            capital_before_death: capital_before,
+            capital_after_resurrection: capital_after,
+            resurrection_scars: scars,
+            death_count,
+            cooldown_rounds_remaining: cooldown,
+        }
+    }
+    
+    /// Calculate capital loss from resurrection
+    pub fn capital_loss(&self) -> u64 {
+        self.capital_before_death.saturating_sub(self.capital_after_resurrection)
+    }
+    
+    /// Get resurrection story/narrative
+    pub fn narrate(&self) -> String {
+        format!(
+            "Agent {} rose from the dead at round {} | \
+             Lost: ${} | Resurrected with: ${} | \
+             Scars incurred: {} | Death #{} | \
+             Cooldown: {} rounds",
+            self.agent_id,
+            self.resurrection_round,
+            self.capital_loss(),
+            self.capital_after_resurrection,
+            self.resurrection_scars,
+            self.death_count,
+            self.cooldown_rounds_remaining,
+        )
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GovernanceResult {
     pub total_votes: u64,
@@ -383,5 +542,30 @@ mod tests {
         );
         let evolved = strategy.evolve_generation();
         assert_eq!(evolved.len(), 100);
+    }
+    
+    #[test]
+    fn test_resurrection_mechanic() {
+        let resurrection = ResurrectionMechanic::new();
+        assert_eq!(resurrection.resurrection_probability, 0.01);
+        assert_eq!(resurrection.capital_recovery_rate, 0.5);
+        
+        let resurrected_capital = resurrection.calculate_resurrected_capital(100_000);
+        assert_eq!(resurrected_capital, 50_000);
+    }
+    
+    #[test]
+    fn test_resurrection_record() {
+        let record = ResurrectionRecord::new(
+            "Agent_1".to_string(),
+            50,
+            100_000,
+            50_000,
+            3,
+            1,
+            20,
+        );
+        assert_eq!(record.capital_loss(), 50_000);
+        println!("{}", record.narrate());
     }
 }

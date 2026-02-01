@@ -27,7 +27,7 @@ use lineage::finance::{
     Offspring, OffspringTraits, InheritanceStrategy,
     Arena, MarketState,
     PerformanceScore, TrustFormula,
-    BlockchainHook, EvolutionaryStrategy,
+    BlockchainHook, EvolutionaryStrategy, ResurrectionMechanic, ResurrectionRecord,
 };
 use lineage::finance::spawning::SpawningRequirement;
 use lineage::finance::trust_scoring::TrustRecord;
@@ -441,7 +441,6 @@ fn demo_trust_scoring() {
     println!("New Grant: {:?}", record.grant);
 }
 
-/// Demonstrate arena competition
 /// Demonstrate advanced features
 fn demo_advanced_features() {
     println!("\n\n=== Advanced Features Demo ===\n");
@@ -479,6 +478,112 @@ fn demo_advanced_features() {
     println!("   - Is Irreversible: {}", proposal.is_irreversible);
 }
 
+/// Demonstrate resurrection mechanics - Permadeath economies
+fn demo_resurrection_mechanics() {
+    println!("\n\n=== 💀 Resurrection Mechanics Demo - Permadeath Economies ===\n");
+    
+    println!("In Lineage Finance, death isn't permanent... but resurrection is EXPENSIVE.\n");
+    
+    // Create a resurrection mechanic (rare, scar-heavy)
+    let resurrection = ResurrectionMechanic::new();
+    println!("🔧 Resurrection Configuration:");
+    println!("   • Resurrection Probability: {:.2}% (1 in {})", 
+        resurrection.resurrection_probability * 100.0,
+        (1.0 / resurrection.resurrection_probability) as u32);
+    println!("   • Capital Recovery Rate: {:.0}%", resurrection.capital_recovery_rate * 100.0);
+    println!("   • Scars Added on Resurrection: {}", resurrection.resurrection_scar_cost);
+    println!("   • Scar Severity: {}", resurrection.scar_severity);
+    println!("   • Resurrection Cooldown: {} rounds", resurrection.resurrection_cooldown);
+    println!("   • Resurrection Cost: {} (community staking required)", resurrection.resurrection_cost);
+    println!();
+    
+    // Scenario 1: Agent dies but gets resurrected
+    println!("📖 Scenario 1: The Fallen Trader");
+    println!("────────────────────────────────────────────");
+    
+    let mut agent1 = FinanceAgent::new("RiskyBot".to_string(), 100_000, 0);
+    println!("\n✓ RiskyBot created with $100,000 capital");
+    
+    // Simulate heavy losses
+    for _ in 0..10 {
+        agent1.consume_capital(15_000).ok();
+        agent1.inflict_financial_scar(8.0, ScarSeverity::Severe);
+    }
+    let _ = agent1.consume_capital(agent1.get_capital());  // Kill the agent
+    
+    println!("✗ RiskyBot bankrupt after series of bad trades");
+    println!("   • Capital lost: $100,000");
+    println!("   • Total scars: {}", agent1.metrics.scar_count);
+    println!("   • Status: {:?}", agent1.status);
+    println!();
+    
+    // Check if resurrection happens
+    println!("🎲 Rolling for resurrection...");
+    if resurrection.should_resurrect() {
+        println!("🔴 CRITICAL: Resurrection activated!");
+        println!();
+        
+        let original_capital = 100_000;
+        let resurrected_capital = resurrection.calculate_resurrected_capital(original_capital);
+        
+        // Create resurrection record
+        let record = ResurrectionRecord::new(
+            agent1.id.to_string(),
+            42,  // Resurrection round
+            original_capital,
+            resurrected_capital,
+            resurrection.resurrection_scar_cost,
+            1,   // First death
+            resurrection.resurrection_cooldown,
+        );
+        
+        println!("{}", record.narrate());
+        println!();
+        println!("⚡ Cost Analysis:");
+        println!("   • Capital Loss: ${}", record.capital_loss());
+        println!("   • New Scars Incurred: {} ({})", 
+            record.resurrection_scars, 
+            resurrection.scar_severity);
+        println!("   • Future Cost Multiplier Impact: {:.1}x per trade", 
+            1.05_f32.powi(resurrection.resurrection_scar_cost as i32));
+        println!("   • Resource Staking Required: {}", resurrection.resurrection_cost);
+        println!();
+        
+        println!("🚀 Resurrection mechanics enable:");
+        println!("   • Speculative markets around agent revivals");
+        println!("   • Community voting on who gets resurrected");
+        println!("   • Permadeath economies with strategic depth");
+        println!("   • Higher stakes create more engaging narratives");
+    } else {
+        println!("🎲 No resurrection this time. RiskyBot remains dead.");
+        println!("   (Probability: {:.1}% - try again!)", resurrection.resurrection_probability * 100.0);
+    }
+    
+    println!();
+    println!("📊 Scenario 2: Multiple Revival Strategies");
+    println!("────────────────────────────────────────────");
+    
+    // Show different resurrection configs
+    println!("\nStandard Resurrection (Production):");
+    let standard = ResurrectionMechanic::new();
+    println!("  • Rarity: {:.2}%", standard.resurrection_probability * 100.0);
+    println!("  • Recovery: {:.0}% capital", standard.capital_recovery_rate * 100.0);
+    
+    println!("\nPermissive Resurrection (Testing/Demo):");
+    let permissive = ResurrectionMechanic::permissive();
+    println!("  • Rarity: {:.2}%", permissive.resurrection_probability * 100.0);
+    println!("  • Recovery: {:.0}% capital", permissive.capital_recovery_rate * 100.0);
+    
+    // Track multiple resurrections for metrics
+    println!("\n📈 Resurrection Market Implications:");
+    println!("   • Each resurrection creates narrative weight");
+    println!("   • Traders know failure isn't clean deletion—it's scar accumulation");
+    println!("   • Resurrected agents become 'marked' by their deaths");
+    println!("   • Communities can bet on resurrection odds");
+    println!("   • This creates emergent game theory around permadeath");
+    println!();
+}
+
 fn main() {
     // Parse CLI arguments
     let args = Args::parse();
@@ -509,6 +614,7 @@ fn main() {
     demo_trust_scoring();
     demo_arena_competition_with_rounds(args.rounds, args.capital, &mut metrics, args.verbose);
     demo_advanced_features();
+    demo_resurrection_mechanics();  // NEW: Resurrection demo
     
     // Save metrics to file if requested
     if let Some(ref output_file) = args.output {
@@ -544,6 +650,7 @@ fn main() {
     println!("║  - Evolutionary (better agents spawn)                          ║");
     println!("║  - Trustworthy (cryptographically proven)                      ║");
     println!("║  - Transparent (graveyard audits all deaths)                   ║");
+    println!("║  - Recoverable (resurrection enables comebacks with costs)     ║");
     println!("╚════════════════════════════════════════════════════════════════╝\n");
     
     // Provide feedback and next steps

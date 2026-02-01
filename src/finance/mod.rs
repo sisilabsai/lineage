@@ -31,7 +31,7 @@ pub use scars::{FinancialScar, ScarImpact, FinancialDamage};
 pub use spawning::{Offspring, OffspringTraits, InheritanceStrategy};
 pub use trust_scoring::{PerformanceScore, TrustFormula, TrustGrant};
 pub use arena::{Arena, CompetitionResult, MarketState};
-pub use advanced::{BlockchainHook, EvolutionaryStrategy, GovernanceVote};
+pub use advanced::{BlockchainHook, EvolutionaryStrategy, GovernanceVote, ResurrectionMechanic, ResurrectionRecord};
 
 /// Configuration for finance agents
 #[derive(Debug, Clone)]
