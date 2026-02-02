@@ -24,7 +24,9 @@ pub mod trust_scoring;
 pub mod arena;
 pub mod advanced;
 pub mod market_data;
+pub mod data_providers;
 pub mod metrics;
+pub mod visualization;
 
 // Re-export core types
 pub use agent::{FinanceAgent, FinanceAgentStatus, AgentMetrics};

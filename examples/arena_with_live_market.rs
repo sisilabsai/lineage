@@ -1,28 +1,40 @@
 //! Multi-Agent Arena with Real Market Data Integration
 //!
 //! This example demonstrates:
-//! - Multiple trading agents competing with REAL CoinDesk market data
+//! - Multiple trading agents competing with REAL market data (CoinMarketCap/CoinGecko)
+//! - Automatic failover between providers
 //! - Evolutionary selection based on actual price movements
 //! - Rate limiting and circuit breaker resilience
 //! - Metrics collection showing cache effectiveness
-//! - Graceful fallback to simulated data if API unavailable
+//! - Graceful fallback to simulated data if all APIs unavailable
+//!
+//! Configuration:
+//! Create a .env file with:
+//! ```
+//! COINMARKETCAP_API_KEY=your-key-here
+//! ```
 //!
 //! Usage:
 //! ```bash
-//! # With API key
-//! COINDESK_API_KEY=<your-key> cargo run --example arena_with_live_market --release
-//!
-//! # Without API key (uses simulated data)
+//! # Automatic: uses .env if present
 //! cargo run --example arena_with_live_market --release
+//!
+//! # Or set environment variable
+//! set COINMARKETCAP_API_KEY=<your-key> && cargo run --example arena_with_live_market --release
 //! ```
 
 use lineage::finance::{
     FinanceAgent, TradeDirection,
-    MarketDataClient, MetricsCollector,
+    data_providers::MultiProviderFetcher,
+    visualization::ArenaVisualizer,
 };
 use std::collections::HashMap;
 use std::env;
+use dotenv;
 use tokio;
+
+mod colors;
+use colors::Color;
 
 /// Simulated market state (fallback when API unavailable)
 struct SimulatedMarket {
@@ -103,67 +115,72 @@ impl TradingAgent {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("╔═══════════════════════════════════════════════════════════╗");
-    println!("║     LINEAGE FINANCE - LIVE MARKET ARENA SIMULATION         ║");
-    println!("║        Multi-Agent Trading with Real Market Data           ║");
-    println!("╚═══════════════════════════════════════════════════════════╝\n");
+    // Load environment variables from .env file
+    dotenv::dotenv().ok();
+    
+    // Beautiful header with colors
+    println!("\n{}", Color::header("╔════════════════════════════════════════════════════════════╗"));
+    println!("{}", Color::highlight("║") + " " + &Color::text("LINEAGE FINANCE", colors::BOLD) + &Color::highlight(" - ARENA SIMULATION") + &Color::highlight(" ║"));
+    println!("{}", Color::highlight("║") + " " + &Color::info("🤖 Multi-Agent Trading | 💹 Real Market Data | 📊 Live Charts") + &Color::highlight(" ║"));
+    println!("{}", Color::header("╚════════════════════════════════════════════════════════════╝\n"));
     
     // Configuration
     let num_agents = 5;
     let num_rounds = 20;
     let initial_capital = 100_000u64;
     
-    // Try to initialize market data client
-    let api_key = env::var("COINDESK_API_KEY").ok();
-    let use_real_data = api_key.is_some();
+    // Initialize multi-provider market data fetcher
+    let cmc_api_key = env::var("COINMARKETCAP_API_KEY").ok();
+    let fetcher = MultiProviderFetcher::new(cmc_api_key.clone());
     
-    let client = if use_real_data {
-        let key = api_key.unwrap();
-        println!("🚀 Using REAL market data from CoinDesk API\n");
-        Some(MarketDataClient::new(key, 5))
+    let use_real_data = cmc_api_key.is_some() || true; // Always try providers
+    
+    if cmc_api_key.is_some() {
+        println!("{} CoinMarketCap API key loaded", Color::success("✓"));
+        println!("{} Using {}", Color::success("🚀"), Color::info("MULTI-PROVIDER market data"));
+        println!("  {} → {}\n", Color::text("CoinMarketCap", colors::BRIGHT_BLUE), Color::text("CoinGecko", colors::BRIGHT_BLUE));
     } else {
-        println!("⚠️  No API key found. Using SIMULATED market data.\n");
-        println!("   Set COINDESK_API_KEY environment variable to use real data.\n");
-        None
-    };
+        println!("{} No CoinMarketCap API key in .env", Color::warning("⚠"));
+        println!("{} Falling back to CoinGecko (free API)\n", Color::info("ℹ"));
+    }
     
     // Create trading agents with different strategies
     let mut agents: Vec<TradingAgent> = vec![
-        TradingAgent::new("AggressiveTrader".to_string(), "momentum".to_string(), initial_capital),
-        TradingAgent::new("ConservativeTrader".to_string(), "conservative".to_string(), initial_capital),
-        TradingAgent::new("BalancedTrader".to_string(), "balanced".to_string(), initial_capital),
-        TradingAgent::new("VolatilityHunter".to_string(), "volatility".to_string(), initial_capital),
-        TradingAgent::new("TrendFollower".to_string(), "trend".to_string(), initial_capital),
+        TradingAgent::new("momentum".to_string(), "momentum".to_string(), initial_capital),
+        TradingAgent::new("conservative".to_string(), "conservative".to_string(), initial_capital),
+        TradingAgent::new("balanced".to_string(), "balanced".to_string(), initial_capital),
+        TradingAgent::new("volatility".to_string(), "volatility".to_string(), initial_capital),
+        TradingAgent::new("trend".to_string(), "trend".to_string(), initial_capital),
     ];
     
     let mut simulated = SimulatedMarket::new();
-    let metrics = if let Some(ref c) = client { c.metrics.clone() } else { MetricsCollector::new() };
     
-    println!("📊 Arena Configuration:");
-    println!("  Agents: {}", num_agents);
-    println!("  Strategies: momentum, conservative, balanced, volatility, trend");
-    println!("  Initial Capital: ${}", initial_capital);
-    println!("  Simulation Rounds: {}\n", num_rounds);
+    // Track price history for charting
+    let mut prices_history: Vec<f64> = Vec::new();
     
-    println!("🎮 Starting Competition...\n");
+    println!("{} Arena Configuration:", Color::highlight("📊"));
+    println!("  {} Agents: {}", Color::info("│"), num_agents);
+    println!("  {} Strategies: momentum, conservative, balanced, volatility, trend", Color::info("│"));
+    println!("  {} Initial Capital: {}", Color::info("│"), Color::text(&format!("${}", initial_capital), colors::BRIGHT_YELLOW));
+    println!("  {} Rounds: {}\n", Color::info("│"), num_rounds);
+    
+    println!("{} {}\n", Color::success("🎮"), Color::header("Starting Competition..."));
     
     // Simulation loop
     for round in 1..=num_rounds {
-        println!("Round {} ─────────────────────────────────────────────", round);
+        let round_header = format!("{} {}", Color::by_rank(&format!("Round {}", round), (round % 5) as usize), Color::info(&"█".repeat(40)));
+        println!("{}", round_header);
         
-        // Fetch real market data if available
-        let mut current_prices = if let Some(ref c) = client {
-            match c.get_latest_prices("cadli", &["BTC-USD", "ETH-USD"]).await {
-                Ok(price_data) => {
-                    let mut prices = HashMap::new();
-                    for (symbol, price_point) in &price_data.prices {
-                        prices.insert(symbol.clone(), price_point.price);
-                    }
-                    prices
+        // Fetch real market data from multi-provider system
+        let mut current_prices = if use_real_data {
+            match fetcher.fetch_prices(&["BTC", "ETH"]).await {
+                Ok(snapshot) => {
+                    println!("  {} Fetched 2 prices from {}", Color::success("✓"), snapshot.source);
+                    snapshot.prices.clone()
                 }
                 Err(e) => {
-                    println!("  ⚠️  Failed to fetch real data: {}", e);
-                    println!("      Falling back to simulated prices");
+                    println!("  {} Failed to fetch real data: {}", Color::error("✗"), e);
+                    println!("      {} Falling back to simulated prices", Color::warning("↓"));
                     HashMap::new()
                 }
             }
@@ -175,6 +192,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if current_prices.is_empty() {
             simulated.tick();
             current_prices = simulated.prices.clone();
+        }
+        
+        // Record price for history
+        if let Some(&price) = current_prices.get("BTC-USD") {
+            prices_history.push(price);
         }
         
         // Execute trades for each agent
@@ -247,26 +269,38 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         
         // Print round results
-        println!("  Market: BTC-USD = ${:.2}", current_prices.get("BTC-USD").unwrap_or(&0.0));
+        println!("  {} BTC-USD = {}", Color::info("💹"), Color::text(&format!("${:.2}", current_prices.get("BTC-USD").unwrap_or(&0.0)), colors::BRIGHT_YELLOW));
         println!();
         
-        for agent in &agents {
+        for (idx, agent) in agents.iter().enumerate() {
             if agent.is_alive() {
                 let perf = (agent.get_performance() * 100.0).round() as u32;
                 let roi = ((agent.get_capital() as f64 / initial_capital as f64 - 1.0) * 100.0).round() as i32;
-                println!("  Agent [{}]", agent.strategy);
-                println!("    Capital:  ${}", agent.get_capital());
-                println!("    Trades:   {} (Wins: {}, Losses: {})", 
-                    agent.trades_executed, agent.wins, agent.losses);
-                println!("    Win Rate: {}%", perf);
-                println!("    ROI:      {}%\n", roi);
+                let agent_num = idx + 1;
+                let colored_name = Color::by_rank(&agent.strategy, agent_num);
+                
+                println!("  {} {}", Color::info("│"), colored_name);
+                println!("    {} Capital:  {}", Color::info("├"), Color::text(&format!("${}", agent.get_capital()), colors::BRIGHT_GREEN));
+                println!("    {} Trades:   {} {} Wins: {}, {} Losses: {}", 
+                    Color::info("├"),
+                    agent.trades_executed,
+                    Color::success("✓"),
+                    agent.wins,
+                    Color::error("✗"),
+                    agent.losses);
+                println!("    {} Win Rate: {}%", Color::info("├"), perf);
+                println!("    {} ROI:      {}{}\n", 
+                    Color::info("└"),
+                    if roi >= 0 { Color::success("+") } else { Color::error("") },
+                    Color::text(&format!("{}%", roi), if roi >= 0 { colors::BRIGHT_GREEN } else { colors::BRIGHT_RED }));
             }
         }
     }
     
     // Final rankings
-    println!("\n╔════════════════════════════════════════════════════════════╗");
-    println!("║                    FINAL RANKINGS                          ║");
+    println!("{}", Color::header("\n╔════════════════════════════════════════════════════════════╗"));
+    println!("{} {}", Color::highlight("║"), Color::header("FINAL RANKINGS"));
+    println!("║{}", Color::header("                          ║"));
     println!("╚════════════════════════════════════════════════════════════╝\n");
     
     agents.sort_by(|a, b| b.get_capital().cmp(&a.get_capital()));
@@ -277,20 +311,56 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let roi = ((final_capital as f64 / initial_capital as f64 - 1.0) * 100.0).round() as i32;
             let perf = (agent.get_performance() * 100.0).round() as u32;
             
-            println!("#{} - Agent [{}]", rank + 1, agent.strategy);
-            println!("    Final Capital: ${}", final_capital);
-            println!("    ROI:           {}%", roi);
-            println!("    Win Rate:      {}%", perf);
-            println!("    Trades:        {}\n", agent.trades_executed);
+            let colored_name = Color::by_rank(&format!("#{} - {}", rank + 1, agent.strategy), rank + 1);
+            println!("{}", colored_name);
+            println!("    {} Final Capital: {}", Color::info("│"), Color::text(&format!("${}", final_capital), colors::BRIGHT_YELLOW));
+            println!("    {} ROI:           {}", Color::info("│"), Color::text(&format!("{}%", roi), if roi >= 0 { colors::BRIGHT_GREEN } else { colors::BRIGHT_RED }));
+            println!("    {} Win Rate:      {}%", Color::info("│"), perf);
+            println!("    {} Trades:        {}\n", Color::info("└"), agent.trades_executed);
         }
     }
     
-    // Display metrics if using real data
-    if client.is_some() {
-        metrics.print_report();
+    // Generate visualizations
+    println!("{} {}\n", Color::highlight("📊"), Color::header("GENERATING CHARTS..."));
+    
+    let mut rankings = Vec::new();
+    for (_rank, agent) in agents.iter().enumerate() {
+        let final_capital = agent.current_capital as f64;
+        let roi = ((final_capital - 100000.0) / 100000.0) * 100.0;
+        let perf = if agent.trades_executed > 0 {
+            (agent.wins as f64 / agent.trades_executed as f64) * 100.0
+        } else {
+            0.0
+        };
+        rankings.push((agent.strategy.clone(), final_capital, roi, perf));
     }
     
-    println!("🏁 Simulation Complete!\n");
+    // Create visualizer and display ASCII charts
+    let mut visualizer = ArenaVisualizer::new().with_rankings(rankings.clone());
+    
+    // Add market price data if available
+    let price_data: Vec<(u32, f64)> = prices_history.iter().enumerate()
+        .map(|(i, &p)| ((i + 1) as u32, p))
+        .collect();
+    visualizer = visualizer.with_prices(price_data);
+    
+    // Display all ASCII charts
+    visualizer.display_all();
+    
+    // Generate HTML charts
+    match visualizer.generate_html_charts("arena_results.html") {
+        Ok(msg) => println!("✅ {}", msg),
+        Err(e) => println!("⚠️  Could not generate HTML: {}", e),
+    }
+    
+    // Export CSV data
+    let csv_data = visualizer.generate_csv();
+    match std::fs::write("arena_results.csv", csv_data) {
+        Ok(_) => println!("{} CSV data exported to {}", Color::success("✅"), Color::info("arena_results.csv")),
+        Err(e) => println!("{} Could not export CSV: {}", Color::error("⚠"), e),
+    }
+    
+    println!("\n{} {}\n", Color::success("🏁"), Color::header("Simulation Complete!"));
     
     Ok(())
 }
