@@ -1,4 +1,4 @@
-# 🚀 Lineage v0.2.1
+# 🚀 Lineage v0.2.2
 
 [![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -20,7 +20,7 @@ Build systems where:
 
 1. [Quick Start](#-quick-start--2-minutes)
 2. [Core Philosophy](#-core-philosophy)
-3. [What's New in v0.2.0](#-whats-new-in-v020)
+3. [What's New in v0.2.2](#-whats-new-in-v022)
 4. [Key Features](#-key-features)
 5. [Examples & Usage](#-examples--usage)
 6. [System Architecture](#-system-architecture)
@@ -49,18 +49,13 @@ Lineage enforces five immutable constraints:
 
 ---
 
-## ⚡ What's New in v0.2.1
+## ⚡ What's New in v0.2.2
 
-✅ **ML Learning Framework** — Advanced training with real/synthetic market data  
-✅ **Scar-Adaptive Training** — Evolutionary pressure through reward penalties  
-✅ **Hyperparameter Tuning** — Full CLI configuration (8 tunable parameters)  
-✅ **Metrics Export** — CSV tracking for analysis and visualization  
-✅ **Market Data Integration** — Live price feeds with intelligent caching  
-✅ **Multi-Agent Arena** — 5+ competing agents with permanent consequences  
-✅ **Rate Limiting & Resilience** — 96% efficiency, circuit breaker recovery  
-✅ **Enterprise Metrics** — Real-time performance monitoring  
-✅ **Evolutionary Selection** — Winners naturally gain advantage  
-✅ **Production Ready** — Docker, Kubernetes, cloud deployments  
+✅ **WebSocket Real-Time Broadcasting** — Live market & agent updates to dashboards  
+✅ **Prometheus Metrics Export** — 14 metrics for Grafana & alerting  
+✅ **Production-Ready Examples** — WebSocket server + client + metrics HTTP endpoint  
+✅ **Complete Integration Guide** — 450+ lines covering all patterns & configurations  
+✅ **Phase 3 Complete** — Advanced evolutionary mechanics, multi-data providers, metrics, WebSocket, Prometheus  
 
 ---
 
@@ -90,6 +85,27 @@ cargo run --example decentralized_trading_agent --release
 # Run all tests
 cargo test --release
 ```
+
+### 🌐 New: Web Dashboard (Phase 3)
+
+```bash
+# Terminal 1: Start WebSocket server
+cargo run --example ws_broadcast_v2 --release
+
+# Terminal 2: Start HTTP server and open dashboard
+cd examples
+python serve_dashboard.py
+# Opens: http://localhost:8000/dashboard.html
+```
+
+**Real-time dashboard shows**:
+- 📊 Live market prices (BTC-USD, ETH-USD)
+- 🤖 Trading agents with performance metrics
+- 💹 Real-time price charts
+- 📈 Agent capital distribution
+- 💬 Live trade feed (win/loss highlights)
+
+See [PHASE_3_WEB_DASHBOARD.md](PHASE_3_WEB_DASHBOARD.md) for full dashboard documentation.
 
 All examples work **without** configuration - they use realistic simulated data by default.
 
@@ -488,6 +504,9 @@ for round in 1..=50 {
 
 | Document | Purpose |
 |----------|---------|
+| [PHASE_3_COMPLETION.md](PHASE_3_COMPLETION.md) | Summary of v0.2.2 WebSocket & Prometheus implementation |
+| [PHASE_3_WEBSOCKET_METRICS_GUIDE.md](PHASE_3_WEBSOCKET_METRICS_GUIDE.md) | Comprehensive integration guide (450+ lines) |
+| [PHASE_3_METRICS_EXAMPLES.md](PHASE_3_METRICS_EXAMPLES.md) | Example metrics outputs & PromQL queries |
 | [LIBRARY_COMPLETE.md](LIBRARY_COMPLETE.md) | Full API reference and architecture |
 | [PRODUCTION_LAUNCH.md](PRODUCTION_LAUNCH.md) | Deployment guide and performance tuning |
 | [MANIFESTO.md](MANIFESTO.md) | Philosophy and vision |
@@ -586,12 +605,41 @@ cargo run --example ethical_decision_wrapper          # Contract enforcement
 - Beautiful terminal formatting
 - ANSI color output
 
-**Phase 3 (In Progress)**
+**Phase 3 (✅ Complete)**
 - ✅ Advanced evolutionary mechanics (agent inheritance, offspring spawning)
 - ✅ Multiple data provider support (CoinDesk, CoinMarketCap APIs)
 - ✅ Metrics export to CSV for analysis
-- ⏳ WebSocket support for real-time updates (planned enhancement)
-- ⏳ Prometheus metrics export (planned enhancement)
+- ✅ WebSocket support for real-time updates (server + client examples)
+- ✅ Prometheus metrics export (scrapable `/metrics` endpoint)
+
+**WebSocket Real-time Updates**
+
+- **Server**: `cargo run --example ws_broadcast --release` — broadcasts market ticks & agent state to `ws://127.0.0.1:9001`
+- **Client**: `cargo run --example ws_client --release` — connects and displays formatted real-time updates
+- **Messages**: Compact JSON with symbol, price, agent_id, win_rate, status, timestamp
+- **Guide**: See [PHASE_3_WEBSOCKET_METRICS_GUIDE.md](PHASE_3_WEBSOCKET_METRICS_GUIDE.md) for integration patterns
+
+**Prometheus Metrics Export**
+
+- **Server**: `cargo run --example metrics_server_v2 --release` — exposes `/metrics` on `127.0.0.1:9184`
+- **Metrics**: Cache hit rate, request success, agent capital, trades, win rate, scars, arena stats, uptime
+- **Format**: Standard Prometheus text format; compatible with Grafana dashboards
+- **Guide**: See [PHASE_3_WEBSOCKET_METRICS_GUIDE.md](PHASE_3_WEBSOCKET_METRICS_GUIDE.md) for PromQL & Grafana setup
+
+**Both Together**
+```bash
+# Terminal 1: Market & agent broadcasts
+cargo run --example ws_broadcast --release
+
+# Terminal 2: Metrics endpoint
+cargo run --example metrics_server_v2 --release
+
+# Terminal 3: Watch real-time data
+cargo run --example ws_client --release
+
+# Terminal 4: Monitor metrics
+watch -n 5 'curl -s http://127.0.0.1:9184/metrics | grep lineage_'
+```
 
 **Phase 4 (Planned)**
 - Blockchain settlement
@@ -623,7 +671,7 @@ MIT License — See [LICENSE](LICENSE)
 
 ---
 
-**Project**: Lineage v0.2.1  
-**Status**: ✅ Production Ready  
-**Last Updated**: February 2, 2026
+**Project**: Lineage v0.2.2  
+**Status**: ✅ Phase 3 Complete (WebSocket + Prometheus)  
+**Last Updated**: February 3, 2026
 

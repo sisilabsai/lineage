@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineage Trading Arena - Real-Time Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .positive { color: #22c55e; }
+        .negative { color: #ef4444; }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .agents-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .agents-table thead {
+            background: rgba(102, 126, 234, 0.2);
+            border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .agents-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #667eea;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .agents-table td {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .agent-row {
+            transition: background 0.2s;
+        }
+
+        .agent-row:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .agent-name {
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .status-resting {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .trades-feed {
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 30px;
+        }
+
+        .trade-event {
+            padding: 12px;
+            border-left: 3px solid #667eea;
+            margin-bottom: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 4px;
+            font-size: 13px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .trade-time {
+            color: #999;
+            font-size: 11px;
+        }
+
+        .trade-win {
+            border-left-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .trade-loss {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-label {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .metric-change {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .status {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .agents-table {
+                font-size: 12px;
+            }
+
+            .agents-table th,
+            .agents-table td {
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>📈 Lineage Trading Arena</h1>
+                <p style="color: #999; font-size: 14px; margin-top: 4px;">Real-Time Multi-Agent Trading Dashboard</p>
+            </div>
+            <div class="status">
+                <div class="status-item">
+                    <div class="status-dot" id="ws-status"></div>
+                    <span id="ws-text">Connecting...</span>
+                </div>
+                <div class="status-item">
+                    <span style="font-size: 12px; color: #999;">Price Updates: <span id="update-count">0</span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Key Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-label">Market Price (BTC-USD)</div>
+                <div class="metric-value" id="btc-price">—</div>
+                <div class="metric-change" id="btc-change">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Market Price (ETH-USD)</div>
+                <div class="metric-value" id="eth-price">—</div>
+                <div class="metric-change" id="eth-change">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Market Price (SOL-USD)</div>
+                <div class="metric-value" id="sol-price">—</div>
+                <div class="metric-change" id="sol-change">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Market Price (ADA-USD)</div>
+                <div class="metric-value" id="ada-price">—</div>
+                <div class="metric-change" id="ada-change">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Market Price (DOT-USD)</div>
+                <div class="metric-value" id="dot-price">—</div>
+                <div class="metric-change" id="dot-change">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Total Trades Executed</div>
+                <div class="metric-value" id="total-trades">0</div>
+                <div class="metric-change" id="trades-rate">—</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Average Win Rate</div>
+                <div class="metric-value" id="avg-win-rate">—</div>
+                <div class="metric-change">Market-based</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Data Source</div>
+                <div class="metric-value" style="font-size: 18px;">🔗 Live</div>
+                <div class="metric-change">CMC & Coindesk</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid">
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="capitalChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Agents Table -->
+        <div>
+            <h2 style="margin-bottom: 16px; font-size: 18px;">Active Agents</h2>
+            <table class="agents-table">
+                <thead>
+                    <tr>
+                        <th>Agent</th>
+                        <th>Capital ($)</th>
+                        <th>Trades</th>
+                        <th>Win Rate</th>
+                        <th>Scars</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="agents-tbody">
+                    <tr style="text-align: center; color: #666;">
+                        <td colspan="6">Waiting for agent data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Trades Feed -->
+        <h2 style="margin: 30px 0 16px; font-size: 18px;">Live Trade Feed</h2>
+        <div class="trades-feed" id="trades-feed">
+            <div style="color: #666; text-align: center; padding: 40px 0;">Waiting for trades...</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
