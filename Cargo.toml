@@ -21,6 +21,10 @@ exclude = [
     ".github/",
     "docs/",
     ".git*",
+    ".lineage/",
+    "libs/",
+    "target/",
+    "examples/",
 ]
 
 [lib]
