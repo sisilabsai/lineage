@@ -18,25 +18,34 @@
 
 pub mod agent;
 pub mod trade;
+pub mod traits;
+pub mod data_providers;
+pub mod visualization;
+pub mod metrics;
 pub mod scars;
 pub mod spawning;
 pub mod trust_scoring;
 pub mod arena;
 pub mod advanced;
 pub mod market_data;
-pub mod data_providers;
-pub mod metrics;
-pub mod visualization;
 
-// Re-export core types
-pub use agent::{FinanceAgent, FinanceAgentStatus, AgentMetrics};
+// ML module (optional feature)
+#[cfg(feature = "ml")]
+pub mod ml;
+
+// Re-export public API
+pub use agent::{FinanceAgent, AgentId, AgentMetrics, FinanceAgentStatus};
+pub use traits::{
+    TradingStrategy, MarketDataProvider, EventHandler, VisualizationProvider,
+    MarketSnapshot, PricePoint, TradeDecision, AgentEvent, VisualizationFormat,
+};
 pub use trade::{Trade, TradeOperation, TradeResult, TradeDirection, ExecutionError};
 pub use scars::{FinancialScar, ScarImpact, FinancialDamage};
 pub use spawning::{Offspring, OffspringTraits, InheritanceStrategy};
 pub use trust_scoring::{PerformanceScore, TrustFormula, TrustGrant};
 pub use arena::{Arena, CompetitionResult, MarketState};
 pub use advanced::{BlockchainHook, EvolutionaryStrategy, GovernanceVote, ResurrectionMechanic, ResurrectionRecord};
-pub use market_data::{MarketDataClient, PriceData, PricePoint, MarketDataConfig, MarketDataError, CircuitBreakerState};
+pub use market_data::{MarketDataClient, PriceData, MarketDataConfig, MarketDataError, CircuitBreakerState};
 pub use metrics::{MetricsCollector, MetricsSnapshot};
 
 /// Configuration for finance agents

@@ -1,26 +1,29 @@
 //! Multi-Agent Arena with Real Market Data Integration
 //!
 //! This example demonstrates:
-//! - Multiple trading agents competing with REAL market data (CoinMarketCap/CoinGecko)
+//! - Multiple trading agents competing with REAL market data
 //! - Automatic failover between providers
 //! - Evolutionary selection based on actual price movements
 //! - Rate limiting and circuit breaker resilience
 //! - Metrics collection showing cache effectiveness
-//! - Graceful fallback to simulated data if all APIs unavailable
-//!
-//! Configuration:
-//! Create a .env file with:
-//! ```
-//! COINMARKETCAP_API_KEY=your-key-here
-//! ```
+//! - Offspring spawning with evolved strategies
+//! - Drawdown-based scar system
+//! - Configurable via command-line arguments
 //!
 //! Usage:
 //! ```bash
-//! # Automatic: uses .env if present
+//! # Basic run (BTC, 20 rounds)
 //! cargo run --example arena_with_live_market --release
 //!
-//! # Or set environment variable
-//! set COINMARKETCAP_API_KEY=<your-key> && cargo run --example arena_with_live_market --release
+//! # Custom configuration
+//! cargo run --example arena_with_live_market --release -- \
+//!   --coins BTC,ETH,SOL \
+//!   --rounds 50 \
+//!   --volatility 1.0 \
+//!   --api-source cmc
+//!
+//! # Show help
+//! cargo run --example arena_with_live_market --release -- --help
 //! ```
 
 use lineage::finance::{
@@ -32,9 +35,40 @@ use std::collections::HashMap;
 use std::env;
 use dotenv;
 use tokio;
+use clap::Parser;
 
 mod colors;
 use colors::Color;
+
+/// CLI arguments for arena configuration
+#[derive(Parser, Debug)]
+#[command(name = "Lineage Arena")]
+#[command(about = "Multi-agent trading arena with real market data", long_about = None)]
+struct Args {
+    /// Cryptocurrencies to trade (comma-separated): BTC, ETH, SOL
+    #[arg(long, default_value = "BTC")]
+    coins: String,
+    
+    /// Number of trading rounds to simulate
+    #[arg(long, short, default_value_t = 20)]
+    rounds: u32,
+    
+    /// Volatility multiplier (1.0 = realistic, 0.5 = stable, 2.0 = volatile)
+    #[arg(long, default_value = "1.0")]
+    volatility: f64,
+    
+    /// API data source: "cmc", "gecko", or "auto"
+    #[arg(long, default_value = "auto")]
+    api_source: String,
+    
+    /// Enable offspring spawning for successful agents
+    #[arg(long, default_value_t = true)]
+    enable_spawning: bool,
+    
+    /// ROI threshold for agent death (-20 = -20%)
+    #[arg(long, default_value = "-20")]
+    roi_threshold: i32,
+}
 
 /// Simulated market state (fallback when API unavailable)
 struct SimulatedMarket {
@@ -115,8 +149,16 @@ impl TradingAgent {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Parse command-line arguments
+    let args = Args::parse();
+    
     // Load environment variables from .env file
     dotenv::dotenv().ok();
+    
+    // Parse CLI coins argument
+    let coins: Vec<&str> = args.coins.split(',')
+        .map(|s| s.trim())
+        .collect();
     
     // Beautiful header with colors
     println!("\n{}", Color::header("╔════════════════════════════════════════════════════════════╗"));
@@ -124,10 +166,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("{}", Color::highlight("║") + " " + &Color::info("🤖 Multi-Agent Trading | 💹 Real Market Data | 📊 Live Charts") + &Color::highlight(" ║"));
     println!("{}", Color::header("╚════════════════════════════════════════════════════════════╝\n"));
     
-    // Configuration
+    // Configuration from CLI or defaults
     let num_agents = 5;
-    let num_rounds = 20;
+    let num_rounds = args.rounds;
     let initial_capital = 100_000u64;
+    let volatility_multiplier = args.volatility;
+    let enable_spawning = args.enable_spawning;
+    let roi_threshold = args.roi_threshold as f32;
     
     // Initialize multi-provider market data fetcher
     let cmc_api_key = env::var("COINMARKETCAP_API_KEY").ok();
@@ -138,11 +183,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if cmc_api_key.is_some() {
         println!("{} CoinMarketCap API key loaded", Color::success("✓"));
         println!("{} Using {}", Color::success("🚀"), Color::info("MULTI-PROVIDER market data"));
-        println!("  {} → {}\n", Color::text("CoinMarketCap", colors::BRIGHT_BLUE), Color::text("CoinGecko", colors::BRIGHT_BLUE));
+        println!("  {} → {}", Color::text("CoinMarketCap", colors::BRIGHT_BLUE), Color::text("CoinGecko", colors::BRIGHT_BLUE));
     } else {
         println!("{} No CoinMarketCap API key in .env", Color::warning("⚠"));
-        println!("{} Falling back to CoinGecko (free API)\n", Color::info("ℹ"));
+        println!("{} Falling back to CoinGecko (free API)", Color::info("ℹ"));
     }
+    
+    println!("{} CLI Configuration:", Color::highlight("⚙"));
+    println!("  {} Coins: {}", Color::info("│"), Color::text(&args.coins, colors::BRIGHT_CYAN));
+    println!("  {} Rounds: {}", Color::info("│"), Color::text(&args.rounds.to_string(), colors::BRIGHT_GREEN));
+    println!("  {} Volatility: {}", Color::info("│"), Color::text(&format!("{}x", volatility_multiplier), colors::BRIGHT_YELLOW));
+    println!("  {} API Source: {}", Color::info("│"), Color::text(&args.api_source, colors::BRIGHT_BLUE));
+    println!("  {} Spawning: {}", Color::info("│"), Color::text(if enable_spawning { "Enabled" } else { "Disabled" }, colors::BRIGHT_MAGENTA));
+    println!("  {} ROI Threshold: {}%\n", Color::info("│"), roi_threshold);
     
     // Create trading agents with different strategies
     let mut agents: Vec<TradingAgent> = vec![

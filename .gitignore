@@ -1,6 +1,21 @@
 /target
 prompt.md
 
+# Generated test/output files
+*.csv
+*.png
+*.jpg
+*.log
+build_error.txt
+output.txt
+ml_validation_output.txt
+ml_training_metrics.csv
+phase3_results.csv
+arena_results.csv
+arena_results.html
+performance.png
+lineage_*.png
+
 # Internal development files (not for public repository)
 AGENT_SYSTEM.md
 ANNOUNCEMENT.md
@@ -71,9 +86,19 @@ PHASE_2_IMPLEMENTATION_GUIDE.md
 PHASE_2_QUICK_REFERENCE.md
 PHASE_2_INDEX.md
 PHASE_2_PLANNING_COMPLETE.md
+PHASE_2_ML_TRAINING_INTEGRATION_INDEX.md
+PHASE_2_TRAINING_COMPLETE.md
+INTERACTIVE_ARENA_VISUALS.txt
+VISUALIZATION_SUMMARY.txt
 build.log
 results/
 results2/
 results_showcase/
 .lineage/
-lineage_*.png
+
+# Quick Wins documentation (internal)
+QUICKWINS_README.md
+QUICKWINS_SUMMARY.md
+ML_LEARNING_QUICKWINS.md
+QUICKWINS_DELIVERABLES.md
+test_quickwins.sh

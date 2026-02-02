@@ -40,3 +40,11 @@ tokio = { version = "1.0", features = ["full"] }
 governor = "0.10"
 dotenv = "0.15"
 thiserror = "1.0"
+async-trait = "0.1"
+ndarray = { version = "0.15", optional = true }
+ndarray-rand = { version = "0.14", optional = true }
+rand_distr = "0.4"
+
+[features]
+default = []
+ml = ["ndarray", "ndarray-rand"]

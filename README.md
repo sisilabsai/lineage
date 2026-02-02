@@ -1,4 +1,4 @@
-# 🚀 Lineage v0.2.0
+# 🚀 Lineage v0.2.1
 
 [![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -49,8 +49,12 @@ Lineage enforces five immutable constraints:
 
 ---
 
-## ⚡ What's New in v0.2.0
+## ⚡ What's New in v0.2.1
 
+✅ **ML Learning Framework** — Advanced training with real/synthetic market data  
+✅ **Scar-Adaptive Training** — Evolutionary pressure through reward penalties  
+✅ **Hyperparameter Tuning** — Full CLI configuration (8 tunable parameters)  
+✅ **Metrics Export** — CSV tracking for analysis and visualization  
 ✅ **Market Data Integration** — Live price feeds with intelligent caching  
 ✅ **Multi-Agent Arena** — 5+ competing agents with permanent consequences  
 ✅ **Rate Limiting & Resilience** — 96% efficiency, circuit breaker recovery  
@@ -190,10 +194,49 @@ Agents spawn offspring with inherited traits:
 // Losers gradually fade from population
 ```
 
-### Example 5: Tamper-Proof Archive
+### Example 5: Advanced ML Agent Training (v0.2.1)
 
 ```bash
-cargo run --example graveyard_inspector -- --summarize
+cargo run --example ml_learning_advanced --features ml -- --help
+```
+
+Train ML agents with configurable hyperparameters and real/synthetic market data:
+
+```bash
+# Default training (30 episodes, synthetic data)
+cargo run --example ml_learning_advanced --features ml
+
+# Aggressive tuning (100 episodes, high learning rate)
+cargo run --example ml_learning_advanced --features ml -- \
+  --episodes 100 \
+  --learning-rate 0.01 \
+  --epsilon-decay 0.95 \
+  --output-csv training_results.csv
+
+# Conservative strategy (high scar penalty)
+cargo run --example ml_learning_advanced --features ml -- \
+  --episodes 50 \
+  --scar-penalty 25.0 \
+  --output-csv conservative_strategy.csv
+
+# Real market data (when API key available)
+COINDESK_API_KEY=... cargo run --example ml_learning_advanced --features ml -- \
+  --use-real-data \
+  --episodes 200
+```
+
+**Features**:
+- 🧠 Q-Net neural network (5 inputs → 64 hidden → 3 outputs)
+- 💔 **Scar-adaptive training**: Reward penalties for loss history
+- ⚙️ **CLI tuning**: 8 configurable hyperparameters
+- 📈 **CSV metrics**: Complete episode-by-episode tracking
+- 🔄 **Real/synthetic data**: Automatic fallback to synthetic
+- 🧬 **Genetic evolution**: Multi-generational agent improvement
+
+### Example 6: Tamper-Proof Archive
+
+```bash
+cargo run --example graveyard_inspector -- --verify <AGENT_ID>
 ```
 
 All dead agents are cryptographically sealed and archived:
@@ -238,6 +281,27 @@ tests/                      # 141 comprehensive tests
 ---
 
 ## ✨ Key Features
+
+### Machine Learning Integration (v0.2.1)
+```bash
+# Advanced training framework with hyperparameter tuning
+cargo run --example ml_learning_advanced --features ml -- --episodes 100 --learning-rate 0.01
+```
+
+**ML Capabilities**:
+- Q-Net neural networks with adaptive learning
+- **Scar-adaptive training**: Evolution through loss penalties
+- Epsilon-greedy exploration/exploitation
+- Real market data integration (CoinDesk API)
+- CSV metrics export for analysis
+- Multi-generational agent evolution
+
+**Evolutionary Pressure**:
+```rust
+// High-scar agents (many losses) → Lower breeding fitness
+// Low-scar agents (few losses) → Higher breeding fitness
+// Result: Population naturally evolves risk management
+```
 
 ### Type-Safe Immutability
 ```rust
@@ -459,6 +523,13 @@ cargo test test_identity            # Test specific system
 
 ## 🎮 All Examples
 
+**ML Trading & Learning** (v0.2.1 new):
+```bash
+cargo run --example ml_learning_advanced --features ml              # Advanced ML training with hyperparameter tuning
+cargo run --example validate_ml_learning --features ml --quiet      # ML agent learning validation
+cargo run --example ml_finance_integration --features ml           # ML agents in finance module
+```
+
 **Market & Trading** (start here):
 ```bash
 cargo run --example arena_with_live_market --release           # Multi-agent competition
@@ -551,7 +622,7 @@ MIT License — See [LICENSE](LICENSE)
 
 ---
 
-**Project**: Lineage v0.2.0  
+**Project**: Lineage v0.2.1  
 **Status**: ✅ Production Ready  
 **Last Updated**: February 2, 2026
 

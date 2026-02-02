@@ -198,7 +198,63 @@ impl FinanceAgent {
         
         self.metrics.scar_count += 1;
         self.scar_cost_multiplier *= 1.05; // 5% cost increase per scar
+    }
+    
+    /// Check if drawdown exceeds threshold and inflict scar
+    /// Returns true if scar was inflicted
+    pub fn check_and_inflict_drawdown_scar(&mut self, current_capital: u64) -> bool {
+        let drawdown = ((self.metrics.peak_capital as f32 - current_capital as f32) 
+                       / self.metrics.peak_capital as f32) * 100.0;
         
+        // Inflict scar if drawdown >5% and not already scarred for this level
+        if drawdown > 5.0 && (self.metrics.scar_count as f32 * 5.0) <= drawdown {
+            self.inflict_financial_scar(drawdown, ScarSeverity::Severe);
+            self.metrics.current_drawdown = drawdown;
+            return true;
+        }
+        
+        false
+    }
+    
+    /// Check if agent should be terminated (low ROI threshold)
+    /// Returns true if agent meets death criteria
+    pub fn check_termination_criteria(&self, roi_threshold: f32, scar_threshold: u32) -> bool {
+        let roi = (self.metrics.capital as f32 / self.metrics.peak_capital as f32 - 1.0) * 100.0;
+        
+        // Die if:
+        // 1. ROI below threshold (e.g., -20%)
+        // 2. Scar count exceeds threshold (e.g., >5)
+        // 3. Capital depleted to 0
+        roi < roi_threshold || self.metrics.scar_count > scar_threshold || self.metrics.capital == 0
+    }
+    
+    /// Evolve offspring with inherited strategy and mutations
+    /// Mutations introduce random variations to strategy weights
+    pub fn spawn_evolved_offspring(&self, mutation_rate: f32) -> Self {
+        let inherited_capital = (self.metrics.capital as f32 * 0.3) as u64; // Offspring gets 30% of parent capital
+        let mutated_strategy = format!("{}_v{}", self.strategy, self.metrics.generation + 1);
+        
+        let mut offspring = FinanceAgent::spawn_offspring(
+            self.id,
+            mutated_strategy,
+            inherited_capital,
+            self.metrics.generation,
+            self.scar_cost_multiplier * 0.95, // 5% improvement from evolution
+        );
+        
+        // Mutations: small random variations to improve strategy
+        offspring.metrics.trust_score = (self.metrics.trust_score * (1.0 + mutation_rate * (rand::random::<f32>() - 0.5))).clamp(0.0, 100.0);
+        
+        offspring
+    }
+    
+    /// Calculate effective trade cost including scar multiplier
+    pub fn calculate_trade_cost(&self, base_cost: u64) -> u64 {
+        (base_cost as f32 * self.scar_cost_multiplier) as u64
+    }
+    
+    /// Check if agent should update status based on scar count
+    pub fn check_status_update(&mut self) {
         if self.metrics.scar_count >= self.max_scars {
             self.status = FinanceAgentStatus::TerminallyDamaged;
         }
