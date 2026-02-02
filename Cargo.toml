@@ -1,6 +1,6 @@
 [package]
 name = "lineage-rs"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 authors = ["Lineage Project"]
 description = "Software identity preserved through irreversible change"
@@ -11,6 +11,17 @@ homepage = "https://github.com/sisilabsai/lineage"
 keywords = ["identity", "consequence", "immutable", "permanent", "trustworthy"]
 categories = ["development-tools", "simulation"]
 license = "MIT"
+exclude = [
+    "*.md",
+    "!README.md",
+    "!CRATES_IO_README.md",
+    "*.png",
+    "*.csv",
+    "*.log",
+    ".github/",
+    "docs/",
+    ".git*",
+]
 
 [lib]
 name = "lineage"
