@@ -69,6 +69,8 @@ pub mod trust;
 pub mod agent;
 pub mod graveyard;
 pub mod finance;
+pub mod governance;
+pub mod provenance;
 
 // Re-export main types for convenience
 pub use lineage::{Lineage, OperationResult, OperationError, LineageStatus};
@@ -93,4 +95,21 @@ pub use finance::{
     ResurrectionMechanic, ResurrectionRecord,
     FinanceConfig,
     MarketDataClient, PriceData, PricePoint, MarketDataConfig, MarketDataError,
+};
+
+// Governance module re-exports
+pub use governance::{
+    GovernanceCouncil, GovernanceConfig, GovernanceError,
+    Proposal, ProposalId, ProposalRisk, ProposalStatus, ProposalOutcome,
+    VoteChoice, VoteRecord, VoteReceipt,
+    GovernanceLedger, GovernanceEvent,
+    ExecutionContext, ExecutionResult,
+};
+
+// Provenance module re-exports
+pub use provenance::{
+    ProvenanceVault, ProvenanceConfig, ProvenanceError,
+    Asset, AssetId, CustodianId, MetadataHash,
+    CustodyEvent, CustodyEventType,
+    VerifyReport, VerifyStatus,
 };

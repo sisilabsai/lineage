@@ -1,4 +1,9 @@
 /target
+target-codex/
+apps/**/target/
+programs/**/target/
+apps/governance-ops/data/
+libs/libtorch/
 prompt.md
 
 # Generated test/output files
@@ -79,6 +84,10 @@ DESCENDANCY_AND_SEAL.md
 EXTENSION_PROTOCOL.md
 PAPER.md
 PUBLICATION_STATUS.md
+DELIVERY_SUMMARY_PHASE3_4.md
+PHASE_4_DELIVERY.md
+SOLANA_INTEGRATION_STRATEGY.md
+SOLANA_LIBRARY_INTEGRATION_VERIFIED.md
 PHASE_2_ROADMAP.md
 PHASE_2_TASKS.md
 PHASE_2_TECHNICAL_SPECS.md

@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineage Governance Live Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --bg-soft: #121820;
+            --panel: #151d26;
+            --panel-alt: #111922;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e6edf3;
+            --muted: #98a2b3;
+            --accent: #f59e0b;
+            --accent-strong: #f97316;
+            --danger: #ef4444;
+            --ok: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: radial-gradient(circle at top left, #1c2530 0%, var(--bg) 45%),
+                        radial-gradient(circle at bottom right, #0f1c1f 0%, var(--bg) 50%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.6));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--danger);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+        }
+
+        .status-dot.online {
+            background: var(--ok);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+        }
+
+        .tag {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .controls {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .controls button {
+            background: var(--accent);
+            border: none;
+            color: #111;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .controls button.secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .controls label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .controls input[type="range"] {
+            width: 220px;
+        }
+
+        .controls select {
+            background: var(--panel-alt);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+        }
+
+        .card h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .card .value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .card .sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--panel-alt);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .proposal h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .proposal .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .proposal .meta span {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .proposal .votes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .proposal .votes div {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .proposal .votes strong {
+            display: block;
+            font-size: 20px;
+            margin-top: 6px;
+        }
+
+        .feed {
+            max-height: 360px;
+            overflow: auto;
+        }
+
+        .feed ul {
+            list-style: none;
+        }
+
+        .feed li {
+            padding: 10px 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .feed li span.time {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--muted);
+            min-width: 80px;
+        }
+
+        .feed li.info {
+            border-left: 3px solid var(--accent);
+        }
+
+        .feed li.warning {
+            border-left: 3px solid var(--danger);
+        }
+
+        .feed li.critical {
+            border-left: 3px solid #f43f5e;
+        }
+
+        canvas {
+            width: 100%;
+            height: 280px;
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <div class="tag">Governance Live</div>
+                <h1>Lineage Consensus Arena</h1>
+            </div>
+            <div class="status">
+                <div class="status-dot" id="status-dot"></div>
+                <div id="status-text">Disconnected</div>
+                <div id="mode-text">Mode: --</div>
+            </div>
+        </header>
+
+        <section class="controls">
+            <button id="play-toggle">Pause</button>
+            <button id="jump-live" class="secondary">Jump to Live</button>
+            <label>Speed
+                <select id="speed">
+                    <option value="0.5">0.5x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="2">2x</option>
+                    <option value="4">4x</option>
+                </select>
+            </label>
+            <label>Scrub
+                <input id="scrub" type="range" min="0" max="0" value="0" step="1">
+            </label>
+            <span id="scrub-label">Frame 0/0</span>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Turnout</h3>
+                <div class="value" id="turnout">0.0%</div>
+                <div class="sub" id="members">0 members</div>
+            </div>
+            <div class="card">
+                <h3>Dissent Rate</h3>
+                <div class="value" id="dissent">0.0%</div>
+                <div class="sub">Votes against outcome</div>
+            </div>
+            <div class="card">
+                <h3>Scars This Round</h3>
+                <div class="value" id="scars-round">0</div>
+                <div class="sub">Damage points inflicted</div>
+            </div>
+            <div class="card">
+                <h3>Total Damage</h3>
+                <div class="value" id="total-damage">0</div>
+                <div class="sub">Cumulative scars</div>
+            </div>
+            <div class="card">
+                <h3>Round</h3>
+                <div class="value" id="round">0</div>
+                <div class="sub" id="outcome">Outcome: --</div>
+            </div>
+        </section>
+
+        <section class="layout">
+            <div class="panel proposal">
+                <h2 id="proposal-title">Awaiting proposal...</h2>
+                <div class="meta">
+                    <span id="proposal-risk">Risk: --</span>
+                    <span id="proposal-id">ID: --</span>
+                    <span id="replay-frame">Replay: --</span>
+                </div>
+                <div class="votes">
+                    <div>For<strong id="votes-for">0</strong></div>
+                    <div>Against<strong id="votes-against">0</strong></div>
+                    <div>Abstain<strong id="votes-abstain">0</strong></div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Dissent Rate</h2>
+                <canvas id="dissent-chart"></canvas>
+            </div>
+        </section>
+
+        <section class="layout" style="margin-top: 20px;">
+            <div class="panel">
+                <h2>Scars Per Round</h2>
+                <canvas id="scars-chart"></canvas>
+            </div>
+            <div class="panel feed">
+                <h2>Ledger Feed</h2>
+                <ul id="feed"></ul>
+            </div>
+        </section>
+
+        <section class="layout" style="margin-top: 20px;">
+            <div class="panel">
+                <h2>Member Energy</h2>
+                <canvas id="energy-chart"></canvas>
+            </div>
+            <div class="panel">
+                <h2>Member Damage</h2>
+                <canvas id="damage-chart"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const modeText = document.getElementById('mode-text');
+        const turnoutEl = document.getElementById('turnout');
+        const dissentEl = document.getElementById('dissent');
+        const scarsRoundEl = document.getElementById('scars-round');
+        const totalDamageEl = document.getElementById('total-damage');
+        const roundEl = document.getElementById('round');
+        const outcomeEl = document.getElementById('outcome');
+        const membersEl = document.getElementById('members');
+        const proposalTitleEl = document.getElementById('proposal-title');
+        const proposalRiskEl = document.getElementById('proposal-risk');
+        const proposalIdEl = document.getElementById('proposal-id');
+        const replayFrameEl = document.getElementById('replay-frame');
+        const votesForEl = document.getElementById('votes-for');
+        const votesAgainstEl = document.getElementById('votes-against');
+        const votesAbstainEl = document.getElementById('votes-abstain');
+        const feedEl = document.getElementById('feed');
+
+        const playToggle = document.getElementById('play-toggle');
+        const jumpLive = document.getElementById('jump-live');
+        const speedSelect = document.getElementById('speed');
+        const scrubSlider = document.getElementById('scrub');
+        const scrubLabel = document.getElementById('scrub-label');
+
+        const dissentCtx = document.getElementById('dissent-chart').getContext('2d');
+        const scarsCtx = document.getElementById('scars-chart').getContext('2d');
+        const energyCtx = document.getElementById('energy-chart').getContext('2d');
+        const damageCtx = document.getElementById('damage-chart').getContext('2d');
+
+        const dissentChart = new Chart(dissentCtx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Dissent %',
+                    data: [],
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                    tension: 0.3,
+                    fill: true,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 100,
+                        ticks: { color: '#94a3b8' }
+                    },
+                    x: { ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { labels: { color: '#cbd5f5' } } }
+            }
+        });
+
+        const scarsChart = new Chart(scarsCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Scars (damage points)',
+                    data: [],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                    borderColor: 'rgba(239, 68, 68, 0.9)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { labels: { color: '#cbd5f5' } } }
+            }
+        });
+
+        const energyChart = new Chart(energyCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Energy',
+                    data: [],
+                    backgroundColor: 'rgba(34, 197, 94, 0.6)',
+                    borderColor: 'rgba(34, 197, 94, 0.9)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { labels: { color: '#cbd5f5' } } }
+            }
+        });
+
+        const damageChart = new Chart(damageCtx, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Damage',
+                    data: [],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                    borderColor: 'rgba(239, 68, 68, 0.9)',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#94a3b8' } }
+                },
+                plugins: { legend: { labels: { color: '#cbd5f5' } } }
+            }
+        });
+
+        const maxPoints = 30;
+        const baseInterval = 1000;
+        let playbackSpeed = 1;
+        let paused = false;
+        let playbackTimer = null;
+
+        const frames = [];
+        const metricsHistory = [];
+        let ledgerEvents = [];
+        let latestMembers = [];
+        let currentIndex = -1;
+
+        function addChartData(chart, labels, values) {
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update('none');
+        }
+
+        function formatTime(ms) {
+            const date = new Date(ms);
+            return date.toLocaleTimeString();
+        }
+
+        function renderFeed(ledgerTotal) {
+            feedEl.innerHTML = '';
+            const slice = ledgerEvents.slice(0, ledgerTotal).slice(-30).reverse();
+            for (const entry of slice) {
+                const item = document.createElement('li');
+                item.className = entry.severity;
+                const time = document.createElement('span');
+                time.className = 'time';
+                time.textContent = formatTime(entry.timestamp_ms || entry.timestamp);
+                const msg = document.createElement('span');
+                msg.textContent = entry.message;
+                item.appendChild(time);
+                item.appendChild(msg);
+                feedEl.appendChild(item);
+            }
+        }
+
+        function renderFrame(index) {
+            const frame = frames[index];
+            if (!frame) {
+                return;
+            }
+
+            const metrics = frame.metrics;
+            turnoutEl.textContent = `${metrics.turnout_pct.toFixed(1)}%`;
+            dissentEl.textContent = `${metrics.dissent_rate_pct.toFixed(1)}%`;
+            scarsRoundEl.textContent = metrics.scars_round;
+            totalDamageEl.textContent = metrics.total_damage;
+            roundEl.textContent = metrics.round;
+            outcomeEl.textContent = `Outcome: ${metrics.outcome}`;
+            membersEl.textContent = `${metrics.members} members`;
+
+            proposalTitleEl.textContent = metrics.title;
+            proposalRiskEl.textContent = `Risk: ${metrics.risk}`;
+            proposalIdEl.textContent = `ID: ${metrics.proposal_id.slice(0, 10)}...`;
+
+            votesForEl.textContent = metrics.for_votes;
+            votesAgainstEl.textContent = metrics.against_votes;
+            votesAbstainEl.textContent = metrics.abstain_votes;
+
+            const history = metricsHistory.slice(0, index + 1);
+            addChartData(
+                dissentChart,
+                history.map(item => item.round),
+                history.map(item => item.dissent_rate_pct)
+            );
+            addChartData(
+                scarsChart,
+                history.map(item => item.round),
+                history.map(item => item.scars_round)
+            );
+
+            const members = frame.members || [];
+            energyChart.data.labels = members.map(member => member.name);
+            energyChart.data.datasets[0].data = members.map(member => member.energy);
+            energyChart.update('none');
+
+            damageChart.data.labels = members.map(member => member.name);
+            damageChart.data.datasets[0].data = members.map(member => member.damage);
+            damageChart.update('none');
+
+            renderFeed(metrics.ledger_total || ledgerEvents.length);
+
+            scrubSlider.value = index;
+            scrubLabel.textContent = `Frame ${index + 1}/${frames.length}`;
+        }
+
+        function startPlayback() {
+            if (playbackTimer) {
+                clearInterval(playbackTimer);
+            }
+            playbackTimer = setInterval(() => {
+                if (paused) {
+                    return;
+                }
+                if (currentIndex < frames.length - 1) {
+                    currentIndex += 1;
+                    renderFrame(currentIndex);
+                }
+            }, baseInterval / playbackSpeed);
+        }
+
+        playToggle.addEventListener('click', () => {
+            paused = !paused;
+            playToggle.textContent = paused ? 'Play' : 'Pause';
+            if (!paused && currentIndex === -1 && frames.length > 0) {
+                currentIndex = frames.length - 1;
+                renderFrame(currentIndex);
+            }
+        });
+
+        jumpLive.addEventListener('click', () => {
+            if (frames.length === 0) {
+                return;
+            }
+            paused = false;
+            playToggle.textContent = 'Pause';
+            currentIndex = frames.length - 1;
+            renderFrame(currentIndex);
+        });
+
+        speedSelect.addEventListener('change', (event) => {
+            playbackSpeed = parseFloat(event.target.value);
+            startPlayback();
+        });
+
+        scrubSlider.addEventListener('input', (event) => {
+            const index = parseInt(event.target.value, 10);
+            if (!Number.isNaN(index)) {
+                paused = true;
+                playToggle.textContent = 'Play';
+                currentIndex = index;
+                renderFrame(currentIndex);
+            }
+        });
+
+        startPlayback();
+
+        const ws = new WebSocket('ws://127.0.0.1:9001');
+
+        ws.onopen = () => {
+            statusDot.classList.add('online');
+            statusText.textContent = 'Connected';
+        };
+
+        ws.onclose = () => {
+            statusDot.classList.remove('online');
+            statusText.textContent = 'Disconnected';
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'status') {
+                modeText.textContent = `Mode: ${data.mode}`;
+            }
+
+            if (data.type === 'replay') {
+                replayFrameEl.textContent = `Replay: ${data.frame}/${data.total_frames}`;
+            }
+
+            if (data.type === 'ledger_event') {
+                ledgerEvents.push(data);
+            }
+
+            if (data.type === 'members') {
+                latestMembers = data.members || [];
+                if (!paused && currentIndex === frames.length - 1) {
+                    energyChart.data.labels = latestMembers.map(member => member.name);
+                    energyChart.data.datasets[0].data = latestMembers.map(member => member.energy);
+                    energyChart.update('none');
+
+                    damageChart.data.labels = latestMembers.map(member => member.name);
+                    damageChart.data.datasets[0].data = latestMembers.map(member => member.damage);
+                    damageChart.update('none');
+                }
+            }
+
+            if (data.type === 'metrics') {
+                metricsHistory.push(data);
+                frames.push({
+                    metrics: data,
+                    members: latestMembers,
+                });
+
+                scrubSlider.max = Math.max(frames.length - 1, 0);
+                scrubLabel.textContent = `Frame ${Math.max(currentIndex + 1, 0)}/${frames.length}`;
+
+                if (!paused && (currentIndex >= frames.length - 2 || currentIndex === -1)) {
+                    currentIndex = frames.length - 1;
+                    renderFrame(currentIndex);
+                }
+            }
+
+            if (data.type === 'resync') {
+                if (Array.isArray(data.ledger_events)) {
+                    ledgerEvents = data.ledger_events;
+                }
+                if (Array.isArray(data.members)) {
+                    latestMembers = data.members;
+                }
+                if (data.metrics) {
+                    metricsHistory.push(data.metrics);
+                    frames.push({
+                        metrics: data.metrics,
+                        members: latestMembers,
+                    });
+                    scrubSlider.max = Math.max(frames.length - 1, 0);
+                    currentIndex = frames.length - 1;
+                    renderFrame(currentIndex);
+                }
+            }
+        };
+    </script>
+</body>
+</html>

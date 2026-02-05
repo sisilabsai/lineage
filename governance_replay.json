@@ -1,0 +1,2767 @@
+[
+  {
+    "metrics": {
+      "round": 1,
+      "proposal_id": "d6dd03d5-f90d-4373-b2e4-f36edce566f4",
+      "title": "Reduce block rewards",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 5,
+      "against_votes": 0,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 0,
+      "timestamp_ms": 1770294794269
+    },
+    "events": [
+      {
+        "message": "Member admitted: Chair",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Member admitted: Guardians",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Member admitted: Treasury",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Member admitted: Protocol",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Member admitted: Risk",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Proposal opened: Reduce block rewards (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794269
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1175,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1125,
+        "damage": 0
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 1025,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 975,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 1075,
+        "damage": 0
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 2,
+      "proposal_id": "d75c85fe-8b20-4357-bf64-6dc8423dd4f8",
+      "title": "Reduce block rewards",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 5,
+      "against_votes": 0,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 0,
+      "timestamp_ms": 1770294794270
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Reduce block rewards (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1150,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1100,
+        "damage": 0
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 1000,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 950,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 1050,
+        "damage": 0
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 3,
+      "proposal_id": "3902b753-f606-473b-a07e-bf219e07938b",
+      "title": "Increase validator penalties",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 2,
+      "against_votes": 0,
+      "abstain_votes": 3,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 0,
+      "timestamp_ms": 1770294794270
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1140,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1075,
+        "damage": 0
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 975,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 940,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 1040,
+        "damage": 0
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 4,
+      "proposal_id": "b41185cf-fac6-44dc-8237-9aa2a809505e",
+      "title": "Increase validator penalties",
+      "risk": "Medium",
+      "outcome": "Failed",
+      "for_votes": 2,
+      "against_votes": 2,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 10,
+      "timestamp_ms": 1770294794270
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Dissent scarred: 6f4659... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794270
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1130,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1050,
+        "damage": 5
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 950,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 915,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 1015,
+        "damage": 5
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 5,
+      "proposal_id": "b298ffa1-0f7c-462c-8aa6-838b10565457",
+      "title": "Freeze unstable markets",
+      "risk": "High",
+      "outcome": "Passed",
+      "for_votes": 2,
+      "against_votes": 1,
+      "abstain_votes": 2,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 20,
+      "total_damage": 30,
+      "timestamp_ms": 1770294794270
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794270
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1105,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1039,
+        "damage": 5
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 940,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 890,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 988,
+        "damage": 25
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 6,
+      "proposal_id": "e1c0b521-9666-41c9-a61a-f18c84f6dc37",
+      "title": "Reduce block rewards",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 1,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 35,
+      "timestamp_ms": 1770294794270
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Reduce block rewards (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794270
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1080,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1012,
+        "damage": 5
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 915,
+        "damage": 0
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 865,
+        "damage": 0
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 956,
+        "damage": 30
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 7,
+      "proposal_id": "fd670ffc-cbbf-4685-b639-60f4e0f921b8",
+      "title": "Adopt new treasury policy",
+      "risk": "Medium",
+      "outcome": "Failed",
+      "for_votes": 2,
+      "against_votes": 2,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 45,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Adopt new treasury policy (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794270
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1055,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 1001,
+        "damage": 5
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 890,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 840,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 923,
+        "damage": 30
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 8,
+      "proposal_id": "9ba1d545-c749-432b-b065-b8b89c478502",
+      "title": "Freeze unstable markets",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 0,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 45,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1030,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 990,
+        "damage": 5
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 863,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 813,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 890,
+        "damage": 30
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 9,
+      "proposal_id": "a17ae8a3-ea08-4b27-b5d1-5aa8b2262598",
+      "title": "Freeze unstable markets",
+      "risk": "Medium",
+      "outcome": "Failed",
+      "for_votes": 2,
+      "against_votes": 3,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 55,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 6f4659... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 1005,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 963,
+        "damage": 10
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 836,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 786,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 857,
+        "damage": 35
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 10,
+      "proposal_id": "6d0dd71e-74b6-4584-bcf8-80a000ae8760",
+      "title": "Reduce block rewards",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 1,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 60,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Reduce block rewards (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 325b66... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 6f4659... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 995,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 935,
+        "damage": 15
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 809,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 759,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 823,
+        "damage": 35
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 11,
+      "proposal_id": "1c02e779-2369-47ca-ba9d-7b21538f125a",
+      "title": "Increase validator penalties",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 1,
+      "against_votes": 4,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 20,
+      "total_damage": 80,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 970,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 906,
+        "damage": 15
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 782,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 732,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 789,
+        "damage": 55
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 12,
+      "proposal_id": "bd04f792-1fc4-45f7-a199-aee2721a989e",
+      "title": "Raise quorum threshold",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 1,
+      "against_votes": 4,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 20,
+      "total_damage": 100,
+      "timestamp_ms": 1770294794271
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Raise quorum threshold (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794271
+      },
+      {
+        "message": "Dissent scarred: 6f4659... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794271
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 945,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 877,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 755,
+        "damage": 5
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 705,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 750,
+        "damage": 55
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 13,
+      "proposal_id": "72a5a88b-e22e-4213-9b4b-ccce393006fc",
+      "title": "Reduce block rewards",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 2,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 110,
+      "timestamp_ms": 1770294794272
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Reduce block rewards (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794272
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 920,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 843,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 728,
+        "damage": 10
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 678,
+        "damage": 5
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 711,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 14,
+      "proposal_id": "c398bb5f-dc42-49ab-8a38-11037a361b60",
+      "title": "Emergency governance patch",
+      "risk": "Medium",
+      "outcome": "Failed",
+      "for_votes": 1,
+      "against_votes": 2,
+      "abstain_votes": 2,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 115,
+      "timestamp_ms": 1770294794272
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Emergency governance patch (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 918f73... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 325b66... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794272
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 910,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 809,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 700,
+        "damage": 10
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 651,
+        "damage": 10
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 695,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 15,
+      "proposal_id": "99660b02-f572-49d2-8c09-54abe67c7393",
+      "title": "Emergency governance patch",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 0,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 115,
+      "timestamp_ms": 1770294794272
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Emergency governance patch (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 325b66... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 900,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 775,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 672,
+        "damage": 10
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 623,
+        "damage": 10
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 655,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 16,
+      "proposal_id": "f5933eff-cccc-4813-b1d2-c392f5571693",
+      "title": "Adopt new treasury policy",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 0,
+      "against_votes": 5,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 115,
+      "timestamp_ms": 1770294794272
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Adopt new treasury policy (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 875,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 741,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 644,
+        "damage": 10
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 595,
+        "damage": 10
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 615,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 17,
+      "proposal_id": "07508f2a-01cf-4fab-9125-4db83836e361",
+      "title": "Increase validator penalties",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 1,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 1,
+      "total_damage": 116,
+      "timestamp_ms": 1770294794272
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794272
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794272
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 850,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 707,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 616,
+        "damage": 10
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 567,
+        "damage": 11
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 575,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 18,
+      "proposal_id": "fe0ce4d4-7bd9-4195-90b9-be4919bf7e79",
+      "title": "Increase validator penalties",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 1,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 1,
+      "total_damage": 117,
+      "timestamp_ms": 1770294794273
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794273
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 825,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 673,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 588,
+        "damage": 11
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 555,
+        "damage": 11
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 535,
+        "damage": 60
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 19,
+      "proposal_id": "51bc177c-1250-4a83-bd96-cc09e8233768",
+      "title": "Emergency governance patch",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 2,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 127,
+      "timestamp_ms": 1770294794273
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Emergency governance patch (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794273
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 800,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 639,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 560,
+        "damage": 11
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 527,
+        "damage": 16
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 495,
+        "damage": 65
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 20,
+      "proposal_id": "aecc4cc6-ba34-4ad0-93c5-1a506cb604c1",
+      "title": "Adopt new treasury policy",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 0,
+      "against_votes": 5,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 127,
+      "timestamp_ms": 1770294794273
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Adopt new treasury policy (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 775,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 605,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 532,
+        "damage": 11
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 498,
+        "damage": 16
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 453,
+        "damage": 65
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 21,
+      "proposal_id": "9fa53e45-d110-4ea5-b625-aa1fe4f93a2d",
+      "title": "Raise quorum threshold",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 2,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 40.0,
+      "scars_round": 10,
+      "total_damage": 137,
+      "timestamp_ms": 1770294794273
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Raise quorum threshold (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Dissent scarred: 918f73... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794273
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 750,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 571,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 504,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 469,
+        "damage": 16
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 411,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 22,
+      "proposal_id": "d243b125-0a38-4ee8-8bf5-ec1845b4c0b5",
+      "title": "Increase validator penalties",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 5,
+      "against_votes": 0,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 137,
+      "timestamp_ms": 1770294794273
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794273
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 725,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 537,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 475,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 440,
+        "damage": 16
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 368,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 23,
+      "proposal_id": "cd18a32c-f32b-496a-97b4-1d03e24bd3fe",
+      "title": "Emergency governance patch",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 0,
+      "against_votes": 5,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 137,
+      "timestamp_ms": 1770294794274
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Emergency governance patch (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 700,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 503,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 446,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 411,
+        "damage": 16
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 325,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 24,
+      "proposal_id": "842deb61-94ce-4643-8d4e-7ce3963c97a1",
+      "title": "Freeze unstable markets",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 1,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 142,
+      "timestamp_ms": 1770294794274
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794274
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 675,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 469,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 417,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 382,
+        "damage": 21
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 308,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 25,
+      "proposal_id": "e35a6e33-e8fb-4b21-8a4d-8a21c1f71113",
+      "title": "Adopt new treasury policy",
+      "risk": "High",
+      "outcome": "Failed",
+      "for_votes": 1,
+      "against_votes": 3,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 20,
+      "total_damage": 162,
+      "timestamp_ms": 1770294794274
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Adopt new treasury policy (High)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794274
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 650,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 455,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 388,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 351,
+        "damage": 41
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 265,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 26,
+      "proposal_id": "81ca428b-b494-4449-82cf-4577ce4a8690",
+      "title": "Increase validator penalties",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 5,
+      "against_votes": 0,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 0.0,
+      "scars_round": 0,
+      "total_damage": 162,
+      "timestamp_ms": 1770294794274
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Increase validator penalties (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 625,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 421,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 359,
+        "damage": 16
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 315,
+        "damage": 41
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 222,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 27,
+      "proposal_id": "e31684dc-e4bb-42a1-b03e-3e25bc44070d",
+      "title": "Freeze unstable markets",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 3,
+      "against_votes": 1,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 167,
+      "timestamp_ms": 1770294794274
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794274
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 600,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 387,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 330,
+        "damage": 21
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 300,
+        "damage": 41
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 179,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 28,
+      "proposal_id": "e81538ae-dcdc-4be7-bfbb-772d652bbe5f",
+      "title": "Raise quorum threshold",
+      "risk": "Medium",
+      "outcome": "Failed",
+      "for_votes": 1,
+      "against_votes": 3,
+      "abstain_votes": 1,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 172,
+      "timestamp_ms": 1770294794275
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Raise quorum threshold (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 918f73... -> Abstain",
+        "severity": "info",
+        "timestamp_ms": 1770294794274
+      },
+      {
+        "message": "Vote cast: 6f4659... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Proposal closed: Failed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Dissent scarred: a84ba6... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794275
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 575,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 353,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 299,
+        "damage": 26
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 264,
+        "damage": 41
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 162,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 29,
+      "proposal_id": "60cfc441-ad7c-47e4-ac65-c240679a9f12",
+      "title": "Raise quorum threshold",
+      "risk": "Low",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 1,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 1,
+      "total_damage": 173,
+      "timestamp_ms": 1770294794275
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Raise quorum threshold (Low)",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 325b66... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Dissent scarred: 33b8ba... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794275
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 550,
+        "damage": 0
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 319,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 267,
+        "damage": 26
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 228,
+        "damage": 42
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 119,
+        "damage": 70
+      }
+    ]
+  },
+  {
+    "metrics": {
+      "round": 30,
+      "proposal_id": "ee846ca1-cd4f-46b5-b4de-35c1d52d078d",
+      "title": "Freeze unstable markets",
+      "risk": "Medium",
+      "outcome": "Passed",
+      "for_votes": 4,
+      "against_votes": 1,
+      "abstain_votes": 0,
+      "members": 5,
+      "turnout_pct": 100.0,
+      "dissent_rate_pct": 20.0,
+      "scars_round": 5,
+      "total_damage": 178,
+      "timestamp_ms": 1770294794275
+    },
+    "events": [
+      {
+        "message": "Proposal opened: Freeze unstable markets (Medium)",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 33b8ba... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: a84ba6... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 918f73... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 6f4659... -> For",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Vote cast: 325b66... -> Against",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Proposal closed: Passed (turnout 100.0%)",
+        "severity": "info",
+        "timestamp_ms": 1770294794275
+      },
+      {
+        "message": "Dissent scarred: 325b66... (Dissent penalty applied)",
+        "severity": "warning",
+        "timestamp_ms": 1770294794275
+      }
+    ],
+    "members": [
+      {
+        "member_id": "325b66af1d82833e60467533040414b66d85ed62287d886a0205ee91dbcea645",
+        "name": "Chair",
+        "energy": 525,
+        "damage": 5
+      },
+      {
+        "member_id": "6f4659ccff56b515c4b1f1798def392832201569ff06f41262eaa49830ddbf7c",
+        "name": "Guardians",
+        "energy": 285,
+        "damage": 35
+      },
+      {
+        "member_id": "a84ba67473b07b6c6c06e3d11c7267cb37ac56f6878df189effe8f558e93c395",
+        "name": "Protocol",
+        "energy": 235,
+        "damage": 26
+      },
+      {
+        "member_id": "33b8ba6c455150600f21f0f093edada47e599b51b468f2e8a1ee26e24ae2a328",
+        "name": "Risk",
+        "energy": 192,
+        "damage": 42
+      },
+      {
+        "member_id": "918f734807d1b6da184363e15599bda951d9e4a01d0c213a4e275e9ab4ca1b5e",
+        "name": "Treasury",
+        "energy": 76,
+        "damage": 70
+      }
+    ]
+  }
+]

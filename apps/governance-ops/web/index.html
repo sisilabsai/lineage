@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineage Governance Ops Console</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <span class="tag">Governance Ops</span>
+                <h1>Lineage Governance Console</h1>
+                <p class="subtitle">Consequence-first governance for systems that refuse to forget.</p>
+            </div>
+            <div class="status">
+                <span class="status-dot" id="status-dot"></span>
+                <span id="status-text">Disconnected</span>
+                <span id="mode-text">Mode: --</span>
+            </div>
+        </header>
+
+        <section class="doctrine">
+            <div>
+                <h2>Why Lineage Exists</h2>
+                <p>
+                    Lineage was built to remove the illusion of consequence-free systems. There is no rollback,
+                    no resurrection, no cleansing of history. Decisions consume finite energy, scars accumulate,
+                    and death is final. Governance that cannot be undone earns trust that can be verified.
+                </p>
+            </div>
+            <ul>
+                <li>Identity is unique and cannot be cloned.</li>
+                <li>History is immutable and append-only.</li>
+                <li>Resources only decrease.</li>
+                <li>Scars are permanent.</li>
+                <li>Death is final.</li>
+            </ul>
+        </section>
+
+        <section class="controls">
+            <button id="play-toggle">Pause</button>
+            <button id="jump-live" class="secondary">Jump to Live</button>
+            <label>Speed
+                <select id="speed">
+                    <option value="0.5">0.5x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="2">2x</option>
+                    <option value="4">4x</option>
+                </select>
+            </label>
+            <label>Scrub
+                <input id="scrub" type="range" min="0" max="0" value="0" step="1">
+            </label>
+            <span id="scrub-label">Frame 0/0</span>
+        </section>
+
+        <section class="admin">
+            <div class="panel admin-panel">
+                <div class="admin-header">
+                    <div>
+                        <h2>Admin Console</h2>
+                        <p class="muted small">
+                            Inject proposals and cast votes with full ledger traceability. Requires a valid admin key.
+                        </p>
+                    </div>
+                    <label class="admin-key">
+                        <span>Admin Key</span>
+                        <input id="admin-key" type="password" placeholder="Enter admin key">
+                        <span id="admin-key-status" class="admin-key-status">Key required</span>
+                    </label>
+                </div>
+                <div class="admin-grid">
+                    <form id="proposal-form" class="admin-form">
+                        <h3>Inject Proposal</h3>
+                        <label>
+                            Title
+                            <input id="proposal-title-input" type="text" placeholder="Emergency quorum boost" required>
+                        </label>
+                        <div class="admin-row">
+                            <label>
+                                Risk
+                                <select id="proposal-risk-input">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </label>
+                            <label>
+                                Voting Window (secs)
+                                <input id="proposal-window-input" type="number" min="5" value="45">
+                            </label>
+                        </div>
+                        <button type="submit">Create Proposal</button>
+                    </form>
+                    <form id="vote-form" class="admin-form">
+                        <h3>Cast Vote</h3>
+                        <label>
+                            Proposal ID (full or prefix)
+                            <input id="vote-proposal-id-input" type="text" placeholder="proposal-id" required>
+                        </label>
+                        <div class="admin-row">
+                            <label>
+                                Choice
+                                <select id="vote-choice-input">
+                                    <option value="for">For</option>
+                                    <option value="against">Against</option>
+                                    <option value="abstain">Abstain</option>
+                                </select>
+                            </label>
+                            <label>
+                                Member ID
+                                <input id="vote-member-id-input" type="text" placeholder="member id">
+                            </label>
+                        </div>
+                        <label>
+                            Member Name (optional)
+                            <input id="vote-member-name-input" type="text" placeholder="Treasury">
+                        </label>
+                        <button type="submit" class="secondary">Cast Vote</button>
+                    </form>
+                </div>
+                <div id="admin-log" class="admin-log">Admin activity will appear here.</div>
+            </div>
+        </section>
+
+        <section class="metrics">
+            <div class="card">
+                <h3>Turnout</h3>
+                <div class="value" id="turnout">0.0%</div>
+                <div class="sub" id="members">0 members</div>
+            </div>
+            <div class="card">
+                <h3>Dissent Rate</h3>
+                <div class="value" id="dissent">0.0%</div>
+                <div class="sub">Votes against outcome</div>
+            </div>
+            <div class="card">
+                <h3>Scars This Round</h3>
+                <div class="value" id="scars-round">0</div>
+                <div class="sub">Damage points inflicted</div>
+            </div>
+            <div class="card">
+                <h3>Total Damage</h3>
+                <div class="value" id="total-damage">0</div>
+                <div class="sub">Cumulative scars</div>
+            </div>
+            <div class="card">
+                <h3>Ledger Entries</h3>
+                <div class="value" id="ledger-total">0</div>
+                <div class="sub">Immutable event chain</div>
+            </div>
+            <div class="card">
+                <h3>Round</h3>
+                <div class="value" id="round">0</div>
+                <div class="sub" id="outcome">Outcome: --</div>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="panel proposal">
+                <h2 id="proposal-title">Awaiting proposal...</h2>
+                <div class="meta">
+                    <span id="proposal-risk">Risk: --</span>
+                    <span id="proposal-id">ID: --</span>
+                    <span id="replay-frame">Replay: --</span>
+                </div>
+                <div class="votes">
+                    <div>For<strong id="votes-for">0</strong></div>
+                    <div>Against<strong id="votes-against">0</strong></div>
+                    <div>Abstain<strong id="votes-abstain">0</strong></div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Dissent Trend</h2>
+                <canvas id="dissent-chart"></canvas>
+            </div>
+        </section>
+
+        <section class="grid" style="margin-top: 20px;">
+            <div class="panel">
+                <h2>Scars Per Round</h2>
+                <canvas id="scars-chart"></canvas>
+            </div>
+            <div class="panel feed">
+                <h2>Ledger Feed</h2>
+                <ul id="feed"></ul>
+            </div>
+        </section>
+
+        <section class="grid" style="margin-top: 20px;">
+            <div class="panel">
+                <h2>Member Energy</h2>
+                <canvas id="energy-chart"></canvas>
+            </div>
+            <div class="panel">
+                <h2>Member Damage</h2>
+                <canvas id="damage-chart"></canvas>
+            </div>
+        </section>
+
+        <section class="grid" style="margin-top: 20px;">
+            <div class="panel graveyard">
+                <h2>Graveyard (Sealed Identities)</h2>
+                <ul id="graveyard-list"></ul>
+            </div>
+            <div class="panel">
+                <h2>Adaptation Notes</h2>
+                <p class="muted">
+                    Systems that allow rollback teach developers to ignore consequences. Lineage enforces
+                    consequence at the API level, making accountability visible in real time. This console
+                    is a living proof of that contract.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

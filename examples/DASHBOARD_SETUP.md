@@ -13,6 +13,38 @@ python -m http.server 8000
 # Then open http://localhost:8000/dashboard.html in your browser
 ```
 
+### Governance Dashboard (New)
+```bash
+# Terminal 1: start governance WebSocket server
+cargo run --example governance_ws_broadcast
+
+# Terminal 2: serve static dashboard
+cd examples
+python -m http.server 8000
+
+# Open in browser
+# http://localhost:8000/governance_dashboard.html
+```
+
+### Governance Replay + JSON Sessions
+```bash
+# Generate a replay session and save it to JSON
+cargo run --example governance_ws_broadcast -- --replay --rounds 30 --record-file governance_replay.json
+
+# Load a saved replay session
+cargo run --example governance_ws_broadcast -- --replay --replay-file governance_replay.json
+
+# Record a live session (first N rounds) to JSON while streaming live
+cargo run --example governance_ws_broadcast -- --rounds 25 --record-file governance_live_capture.json
+```
+
+### Dashboard Controls
+The governance dashboard now includes:
+- Play/Pause
+- Scrub slider (frame-by-frame replay)
+- Speed selector
+- Jump-to-live
+
 ### Option 2: Using Node.js http-server
 ```bash
 npm install -g http-server
